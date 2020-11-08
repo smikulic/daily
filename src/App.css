@@ -71,6 +71,11 @@
   flex-basis: 50%;
 }
 
+.day-event--description__editable:focus {
+  color: #817187;
+  outline: 0;
+}
+
 .day-event--category,
 .day-event--details {
   display: flex;
@@ -103,10 +108,25 @@
 }
 
 .day-event--details {
+  position: relative;
   justify-content: flex-end;
 }
 
 .day-event--details > div {
   justify-content: flex-end;
   flex-basis: 33.33%;
+}
+
+.day-event--hours {
+  position: relative;
+}
+
+.range-input {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+}
+
+.day-event--edit {
+  cursor: pointer;
 }
