@@ -1,38 +1,112 @@
 .App {
-  text-align: center;
+  display: flex;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.activity {
+  width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.day {
+  /* outline: 1px solid olive; */
   display: flex;
   flex-direction: column;
+  margin: 1rem 2rem;
+  box-shadow: 0px 2px 6px -2px #f8f8f9;
+  font-size: 0.8rem;
+  background-color: #fff;
+  color: #2c1338;
+}
+
+.day-summary {
+  display: flex;
+  padding: 0.5rem;
+  width: 100%;
+  font-weight: 500;
+}
+
+.day-summary--date {
+  display: flex;
+  flex-basis: 75%;
+}
+
+.day-summary--details {
+  display: flex;
+  justify-content: flex-end;
+  flex-basis: 25%;
+}
+
+.day-summary--details > div {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: flex-end;
+  flex-basis: 33.33%;
+  white-space: nowrap;
+  padding: 0 0.2rem;
 }
 
-.App-link {
-  color: #61dafb;
+.currency,
+.time-format {
+  margin-left: 0.25rem;
+  color: #817187;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.day-events {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.day-event {
+  display: flex;
+  padding: 0.5rem;
+}
+.day-event:hover {
+  background-color: #f8f8f9;
+  box-shadow: 0px 1px 3px -1px #f8f8f9;
+}
+
+.day-event--description {
+  display: flex;
+  align-items: center;
+  flex-basis: 50%;
+}
+
+.day-event--category,
+.day-event--details {
+  display: flex;
+  justify-content: flex-start;
+  flex-basis: 25%;
+  font-size: 0.8rem;
+}
+
+.day-event--category > div,
+.day-event--details > div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  white-space: nowrap;
+  padding: 0 0.2rem;
+}
+
+.day-event--category .day-event--project .tag,
+.day-event--category .day-event--client .tag {
+  padding: 0.1rem 0.6rem;
+  font-size: 0.75rem;
+  border-radius: 1rem;
+  color: #b32323;
+  border: 1px solid #b32323;
+}
+
+.day-event--category .day-event--client .tag {
+  color: #817187;
+  border: 1px solid #817187;
+}
+
+.day-event--details {
+  justify-content: flex-end;
+}
+
+.day-event--details > div {
+  justify-content: flex-end;
+  flex-basis: 33.33%;
 }
