@@ -10,3 +10,19 @@
 .logo {
   height: 2rem;
 }
+
+.navigation {
+  margin-top: 1rem;
+}
+
+.navigation-item {
+  padding: 0.25rem 0.75rem;
+  color: rgba(253, 229, 220, 0.5);
+  cursor: pointer;
+}
+.navigation-item.active {
+  color: rgb(253, 229, 220);
+}
+.navigation-item:hover {
+  color: rgb(253, 229, 220);
+}

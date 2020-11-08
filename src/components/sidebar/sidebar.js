@@ -6,7 +6,7 @@ function Sidebar() {
     <div className="sidebar">
       <img src={logo} className="logo" alt="logo" />
       <div className="navigation">
-        <div className="navigation-item">Tracker</div>
+        <div className="navigation-item active">Tracker</div>
         <div className="navigation-item">Projects</div>
         <div className="navigation-item">Companies</div>
         <div className="navigation-item">Insight</div>
