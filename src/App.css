@@ -7,7 +7,6 @@
 }
 
 .day {
-  /* outline: 1px solid olive; */
   display: flex;
   flex-direction: column;
   margin: 1rem 2rem;
@@ -74,6 +73,7 @@
 
 .day-event--description__editable {
   padding: 0 2rem 0 0.2rem;
+  cursor: pointer;
 }
 .day-event--description__editable:focus {
   color: #817187;
@@ -94,21 +94,50 @@
   align-items: center;
   justify-content: flex-start;
   white-space: nowrap;
-  padding: 0 0.2rem;
 }
 
-.day-event--category .day-event--project .tag,
-.day-event--category .day-event--client .tag {
+.day-event---project-client-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.2rem;
+  cursor: pointer;
+}
+.day-event---project-client-wrapper.editable,
+.day-event---project-client-wrapper:hover {
+  background-color: rgba(44, 19, 56, 0.1);
+}
+
+.day-event--project,
+.day-event--client {
+  position: relative;
+}
+
+.day-event--project .tag,
+.day-event--client .tag {
   padding: 0.1rem 0.6rem;
   font-size: 0.75rem;
-  border-radius: 1rem;
-  color: #b32323;
-  border: 1px solid #b32323;
+  color: #817187;
 }
 
-.day-event--category .day-event--client .tag {
-  color: #817187;
-  border: 1px solid #817187;
+.day-event--project .tag {
+  color: #b32323;
+}
+
+.day-event--project .tag:before,
+.day-event--client .tag:before {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #b32323;
+}
+
+.day-event--client .tag:before {
+  background-color: #817187;
 }
 
 .day-event--details {
@@ -122,10 +151,14 @@
 }
 
 .day-event--hours .hour {
-  border: 1px solid transparent;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.2rem;
+  cursor: pointer;
 }
-.day-event--hours .hour.editable {
-  border-bottom: 1px solid #817187;
+
+.day-event--hours .hour.editable,
+.day-event--hours .hour:hover {
+  background-color: rgba(44, 19, 56, 0.1);
 }
 
 .range-input {
