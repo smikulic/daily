@@ -59,6 +59,7 @@
 .day-event {
   display: flex;
   padding: 0.5rem;
+  position: relative;
 }
 .day-event:hover {
   background-color: #f8f8f9;
@@ -71,6 +72,9 @@
   flex-basis: 50%;
 }
 
+.day-event--description__editable {
+  padding: 0 2rem 0 0.2rem;
+}
 .day-event--description__editable:focus {
   color: #817187;
   outline: 0;
@@ -117,8 +121,11 @@
   flex-basis: 33.33%;
 }
 
-.day-event--hours {
-  position: relative;
+.day-event--hours .hour {
+  border: 1px solid transparent;
+}
+.day-event--hours .hour.editable {
+  border-bottom: 1px solid #817187;
 }
 
 .range-input {

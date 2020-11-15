@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import ContentEditable from "react-contenteditable";
+import { Range, getTrackBackground } from "react-range";
 import Sidebar from "./components/sidebar";
 import "./App.css";
 
@@ -78,9 +79,6 @@ function App() {
                 <div className="day-summary">
                   <div className="day-summary--date">{day.time}</div>
                   <div className="day-summary--details">
-                    {/* <div className="day-summary--billable">
-                      520 <span className="currency">EUR</span>
-                    </div> */}
                     <div className="day-summary--hours">
                       {day.totalHours} <span className="time-format">h</span>
                     </div>
@@ -99,12 +97,23 @@ function App() {
                           <ContentEditable
                             className="day-event--description__editable"
                             html={dayEvent.description}
-                            onBlur={() =>
-                              updateDescription(day.id, dayEvent, day.events)
-                            }
-                            onChange={(e) =>
-                              (descriptionText.current = e.target.value)
-                            }
+                            onBlur={(e) => {
+                              if (descriptionText.current) {
+                                updateDescription(day.id, dayEvent, day.events);
+                              }
+                            }}
+                            onChange={(e) => {
+                              descriptionText.current = e.target.value;
+                            }}
+                            onKeyDown={(keyEvent) => {
+                              if (
+                                keyEvent.key === "Enter" ||
+                                keyEvent.key === "Escape"
+                              ) {
+                                keyEvent.preventDefault();
+                                keyEvent.target.blur();
+                              }
+                            }}
                           />
                         </div>
                         <div className="day-event--category">
@@ -134,38 +143,115 @@ function App() {
                               }
                             }}
                           >
-                            {formattedHours}
-                          </div>
-                          {showRangeInput === dayEvent.id && (
-                            <input
-                              type="range"
-                              className="range-input"
-                              min="0.5"
-                              max="24"
-                              step="0.5"
-                              value={dayEvent.hours}
-                              onChange={(e) =>
-                                updateHours(
-                                  day.id,
-                                  dayEvent,
-                                  day.events,
-                                  e.target.value
-                                )
+                            <span
+                              className={
+                                showRangeInput === dayEvent.id
+                                  ? "hour editable"
+                                  : "hour"
                               }
-                              onBlur={(e) => {
+                            >
+                              {formattedHours}
+                            </span>
+                          </div>
+                          <div className="day-event--edit">...</div>
+                        </div>
+                        {showRangeInput === dayEvent.id && (
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              flexWrap: "wrap",
+                              width: "25%",
+                              position: "absolute",
+                              top: "2.2rem",
+                              right: 0,
+                              zIndex: "1",
+                              background: "#fff",
+                              padding: "0.5rem 0.75rem",
+                            }}
+                          >
+                            <Range
+                              step={0.5}
+                              min={0.5}
+                              max={24}
+                              onFinalChange={(values) => {
                                 setRangeInput(false);
                                 updateHours(
                                   day.id,
                                   dayEvent,
                                   day.events,
-                                  e.target.value,
+                                  values,
                                   true
                                 );
                               }}
+                              values={[dayEvent.hours]}
+                              onChange={(values) =>
+                                updateHours(
+                                  day.id,
+                                  dayEvent,
+                                  day.events,
+                                  values
+                                )
+                              }
+                              renderTrack={({ props, children }) => (
+                                <div
+                                  onMouseDown={props.onMouseDown}
+                                  onTouchStart={props.onTouchStart}
+                                  style={{
+                                    ...props.style,
+                                    height: "26px",
+                                    display: "flex",
+                                    width: "100%",
+                                  }}
+                                >
+                                  <div
+                                    ref={props.ref}
+                                    style={{
+                                      height: "8px",
+                                      width: "100%",
+                                      borderRadius: "8px",
+                                      background: getTrackBackground({
+                                        values: [dayEvent.hours],
+                                        colors: ["#817187", "#ccc"],
+                                        min: 0.5,
+                                        max: 24,
+                                      }),
+                                      alignSelf: "center",
+                                    }}
+                                  >
+                                    {children}
+                                  </div>
+                                </div>
+                              )}
+                              renderThumb={({ props, isDragged }) => (
+                                <div
+                                  {...props}
+                                  style={{
+                                    ...props.style,
+                                    height: "21px",
+                                    width: "21px",
+                                    borderRadius: "2px",
+                                    backgroundColor: "#FFF",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    boxShadow: "0px 2px 6px #817187",
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      height: "14px",
+                                      width: "5px",
+                                      backgroundColor: isDragged
+                                        ? "#817187"
+                                        : "#CCC",
+                                    }}
+                                  />
+                                </div>
+                              )}
                             />
-                          )}
-                          <div className="day-event--edit">...</div>
-                        </div>
+                          </div>
+                        )}
                       </div>
                     );
                   })}
