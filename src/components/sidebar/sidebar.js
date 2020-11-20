@@ -8,7 +8,7 @@ function Sidebar() {
       <div className="navigation">
         <div className="navigation-item active">Tracker</div>
         <div className="navigation-item">Projects</div>
-        <div className="navigation-item">Companies</div>
+        <div className="navigation-item">Clients</div>
         <div className="navigation-item">Insight</div>
       </div>
     </div>

@@ -1,7 +1,11 @@
 import { useState, useRef } from "react";
 import ContentEditable from "react-contenteditable";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTrash,
+  faCheckCircle,
+  faFolder,
+} from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "./components/sidebar";
 import RangePicker from "./components/range-picker";
 import "./App.css";
@@ -75,6 +79,21 @@ function App() {
     <div className="App">
       <Sidebar />
       <div className="activity">
+        <div className="new-activity">
+          <input
+            className="new-activity--description"
+            type="text"
+            placeholder="What have you done?"
+          />
+          <div className="new-activity--actions">
+            <div className="new-activity--category">
+              <FontAwesomeIcon icon={faFolder} size="sm" />
+            </div>
+            <div className="new-activity--submit">
+              <FontAwesomeIcon icon={faCheckCircle} size="2x" />
+            </div>
+          </div>
+        </div>
         {activities.length &&
           activities.map((day, activityKey) => {
             let totalHours = 0;
@@ -136,7 +155,13 @@ function App() {
                           <div className="day-event--category">
                             <span className="day-event---project-client-wrapper">
                               <div className="day-event--project">
-                                <span className="tag">
+                                <span
+                                  className="tag"
+                                  style={{
+                                    color:
+                                      dayEvent.project.themeColor || "#b32323",
+                                  }}
+                                >
                                   {dayEvent.project.name}
                                 </span>
                               </div>
@@ -149,10 +174,16 @@ function App() {
                           </div>
                           <div className="day-event--details">
                             <div className="day-event--billable">
-                              {dayEvent.project.rate * dayEvent.hours}{" "}
-                              <span className="currency">
-                                {dayEvent.project.currency}
-                              </span>
+                              {dayEvent.project.rate ? (
+                                <>
+                                  {dayEvent.project.rate * dayEvent.hours}{" "}
+                                  <span className="currency">
+                                    {dayEvent.project.currency}
+                                  </span>
+                                </>
+                              ) : (
+                                "\u2013"
+                              )}
                             </div>
                             <div
                               className="day-event--hours"
@@ -174,9 +205,7 @@ function App() {
                                 {formattedHours}
                               </span>
                             </div>
-                            <div className="day-event--edit">
-                              {/* <FontAwesomeIcon icon={faTrash} size="xs" color="#b32323" /> */}
-                            </div>
+                            <div className="day-event--edit">Clear</div>
                           </div>
                           {showRangeInput === dayEvent.id && (
                             <RangePicker
@@ -184,6 +213,18 @@ function App() {
                               dayEvent={dayEvent}
                               setRangeInput={setRangeInput}
                               updateHours={updateHours}
+                              onChange={(values) =>
+                                updateHours(
+                                  day.id,
+                                  dayEvent,
+                                  day.events,
+                                  values[0]
+                                )
+                              }
+                              onFinalChange={(values) => {
+                                setRangeInput(false);
+                                updateHours(day.id, dayEvent, day.events, values[0], true);
+                              }}
                             />
                           )}
                         </div>

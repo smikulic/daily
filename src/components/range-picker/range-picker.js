@@ -1,4 +1,5 @@
 import { Range, getTrackBackground } from "react-range";
+import "./range-picker.css";
 
 function RangePicker({ day, dayEvent, setRangeInput, updateHours }) {
   return (
