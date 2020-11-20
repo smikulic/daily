@@ -72,10 +72,13 @@
 }
 
 .day-event--description__editable {
-  padding: 0 2rem 0 0.2rem;
+  padding: 0.1rem 0.9rem 0.1rem 0.3rem;
+  border-radius: 0.2rem;
   cursor: pointer;
 }
-.day-event--description__editable:focus {
+.day-event--description__editable:focus,
+.day-event--description__editable:hover {
+  background-color: rgba(44, 19, 56, 0.1);
   color: #817187;
   outline: 0;
 }
