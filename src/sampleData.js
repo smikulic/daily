@@ -1,11 +1,19 @@
 export const projectData = [
   {
+    id: "0pro",
+    name: "No Project",
+    rate: 0,
+    currency: "",
+    client: "",
+    themeColor: "",
+  },
+  {
     id: "1pro",
     name: "Backoffice",
     rate: 60,
     currency: "EUR",
     client: "solarisBank",
-    themeColor: '#b32323',
+    themeColor: "#b32323",
   },
   {
     id: "2pro",
@@ -13,7 +21,7 @@ export const projectData = [
     rate: 0,
     currency: "",
     client: "Code Well Studio",
-    themeColor: '#059481',
+    themeColor: "#059481",
   },
   {
     id: "3pro",
@@ -21,7 +29,7 @@ export const projectData = [
     rate: 90,
     currency: "USD",
     client: "Sony",
-    themeColor: '#0a73bf',
+    themeColor: "#0a73bf",
   },
   {
     id: "4pro",
@@ -29,7 +37,7 @@ export const projectData = [
     rate: 0,
     currency: "",
     client: "Code Well Studio",
-    themeColor: '#059481',
+    themeColor: "#059481",
   },
 ];
 

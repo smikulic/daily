@@ -1,20 +1,35 @@
 import { useState, useRef } from "react";
 import ContentEditable from "react-contenteditable";
+import Select from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTrash,
-  faCheckCircle,
-  faFolder,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faFolder } from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "./components/sidebar";
 import RangePicker from "./components/range-picker";
+import EventCategory from "./components/event-category/event-category";
+import { formatHours } from "./utils/formatHours";
 import "./App.css";
 
+const projectSelectStyles = {
+  container: (provided) => ({
+    ...provided,
+    position: "absolute",
+    top: "1.8rem",
+    left: "-7rem",
+    width: "14rem",
+  }),
+};
+
 function App() {
+  const [projects] = useState(
+    JSON.parse(localStorage.getItem("daily__projects")) || []
+  );
   const [activities, setActivities] = useState(
     JSON.parse(localStorage.getItem("daily__activity")) || []
   );
   const [showRangeInput, setRangeInput] = useState(false);
+  const [showNewEventRange, toggleNewEventRange] = useState(false);
+  const [showProjectSelect, toggleProjectSelect] = useState(false);
+  const [newEvent, setNewEvent] = useState({ hours: 0 });
   const descriptionText = useRef("");
 
   const updateActivity = (dayId, updatedEvents, submitFlag = true) => {
@@ -87,20 +102,55 @@ function App() {
           />
           <div className="new-activity--actions">
             <div className="new-activity--category">
-              <FontAwesomeIcon icon={faFolder} size="sm" />
+              <FontAwesomeIcon
+                icon={faFolder}
+                size="sm"
+                onClick={() => toggleProjectSelect(!showProjectSelect)}
+              />
+              {showProjectSelect && (
+                <Select
+                  styles={projectSelectStyles}
+                  defaultValue={projects[0].name}
+                  isClearable
+                  isSearchable
+                  name="project"
+                  formatOptionLabel={EventCategory}
+                  options={projects}
+                  filterOption={(project, input) => {
+                    if (input) {
+                      return project.data.name.toLowerCase().includes(input);
+                    }
+                    return true;
+                  }}
+                />
+              )}
+            </div>
+            <div
+              className="day-event--hours"
+              onClick={() => toggleNewEventRange(true)}
+            >
+              <span className={showNewEventRange ? "hour editable" : "hour"}>
+                {formatHours(newEvent.hours)}
+              </span>
             </div>
             <div className="new-activity--submit">
               <FontAwesomeIcon icon={faCheckCircle} size="2x" />
             </div>
           </div>
+          {showNewEventRange && (
+            <RangePicker
+              rangeValues={newEvent.hours}
+              onChange={(rangeValues) =>
+                setNewEvent({ ...newEvent, hours: rangeValues })
+              }
+              onFinalChange={() => toggleNewEventRange(false)}
+            />
+          )}
         </div>
         {activities.length &&
           activities.map((day, activityKey) => {
             let totalHours = 0;
             day.events.forEach((dayEvent) => (totalHours += dayEvent.hours));
-            let dayDate = new Date(0);
-            dayDate.setSeconds(totalHours * 60 * 60); // 60 minutes * 60 seconds
-            const formattedTotalHours = dayDate.toISOString().substr(11, 5);
 
             return (
               <div className="day" key={activityKey}>
@@ -108,7 +158,7 @@ function App() {
                   <div className="day-summary--date">{day.time}</div>
                   <div className="day-summary--details">
                     <div className="day-summary--hours">
-                      {formattedTotalHours}{" "}
+                      {formatHours(totalHours)}{" "}
                       <span className="time-format">h</span>
                     </div>
                     <div className="day-summary--actions"></div>
@@ -117,12 +167,6 @@ function App() {
                 <div className="day-events">
                   {day.events.length &&
                     day.events.map((dayEvent, eventKey) => {
-                      let eventDate = new Date(0);
-                      eventDate.setSeconds(dayEvent.hours * 60 * 60); // 60 minutes * 60 seconds
-                      const formattedHours = eventDate
-                        .toISOString()
-                        .substr(11, 5);
-
                       return (
                         <div className="day-event" key={eventKey}>
                           <div className="day-event--description">
@@ -152,26 +196,12 @@ function App() {
                               }}
                             />
                           </div>
-                          <div className="day-event--category">
-                            <span className="day-event---project-client-wrapper">
-                              <div className="day-event--project">
-                                <span
-                                  className="tag"
-                                  style={{
-                                    color:
-                                      dayEvent.project.themeColor || "#b32323",
-                                  }}
-                                >
-                                  {dayEvent.project.name}
-                                </span>
-                              </div>
-                              <div className="day-event--client">
-                                <span className="tag">
-                                  {dayEvent.project.client}
-                                </span>
-                              </div>
-                            </span>
-                          </div>
+                          <EventCategory
+                            enableHover
+                            name={dayEvent.project.name}
+                            client={dayEvent.project.client}
+                            themeColor={dayEvent.project.themeColor}
+                          />
                           <div className="day-event--details">
                             <div className="day-event--billable">
                               {dayEvent.project.rate ? (
@@ -202,28 +232,31 @@ function App() {
                                     : "hour"
                                 }
                               >
-                                {formattedHours}
+                                {formatHours(dayEvent.hours)}
                               </span>
                             </div>
                             <div className="day-event--edit">Clear</div>
                           </div>
                           {showRangeInput === dayEvent.id && (
                             <RangePicker
-                              day={day}
-                              dayEvent={dayEvent}
-                              setRangeInput={setRangeInput}
-                              updateHours={updateHours}
-                              onChange={(values) =>
+                              rangeValues={dayEvent.hours}
+                              onChange={(rangeValues) =>
                                 updateHours(
                                   day.id,
                                   dayEvent,
                                   day.events,
-                                  values[0]
+                                  rangeValues[0]
                                 )
                               }
-                              onFinalChange={(values) => {
+                              onFinalChange={(rangeValues) => {
                                 setRangeInput(false);
-                                updateHours(day.id, dayEvent, day.events, values[0], true);
+                                updateHours(
+                                  day.id,
+                                  dayEvent,
+                                  day.events,
+                                  rangeValues[0],
+                                  true
+                                );
                               }}
                             />
                           )}

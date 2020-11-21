@@ -32,7 +32,12 @@
   justify-content: flex-end;
 }
 
+.new-activity--actions .day-event--hours {
+  margin-right: 0.6rem;
+}
+
 .new-activity--actions .new-activity--category {
+  position: relative;
   margin-right: 1rem;
   color: rgba(44, 19, 56, 0.5);
   cursor: pointer;
@@ -128,7 +133,6 @@
   outline: 0;
 }
 
-.day-event--category,
 .day-event--details {
   display: flex;
   justify-content: flex-start;
@@ -140,56 +144,11 @@
   flex-basis: 20%;
 }
 
-.day-event--category > div,
 .day-event--details > div {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   white-space: nowrap;
-}
-
-.day-event---project-client-wrapper {
-  display: flex;
-  justify-content: flex-start;
-  padding: 0.1rem 0.3rem;
-  border-radius: 0.2rem;
-  cursor: pointer;
-}
-.day-event---project-client-wrapper.editable,
-.day-event---project-client-wrapper:hover {
-  background-color: rgba(44, 19, 56, 0.1);
-}
-
-.day-event--project,
-.day-event--client {
-  position: relative;
-}
-
-.day-event--project .tag,
-.day-event--client .tag {
-  padding: 0.1rem 0.6rem;
-  font-size: 0.75rem;
-  color: #817187;
-}
-
-.day-event--project .tag {
-  color: #b32323;
-}
-
-.day-event--project .tag:before,
-.day-event--client .tag:before {
-  content: "";
-  position: absolute;
-  top: 7px;
-  left: 0;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: #b32323;
-}
-
-.day-event--client .tag:before {
-  background-color: #817187;
 }
 
 .day-event--details {

@@ -3,10 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { activityData } from "./sampleData.js";
+import { activityData, projectData } from "./sampleData.js";
 
 if (localStorage.getItem("daily__activity") === null) {
   localStorage.setItem("daily__activity", JSON.stringify(activityData));
+}
+if (localStorage.getItem("daily__projects") === null) {
+  localStorage.setItem("daily__projects", JSON.stringify(projectData));
 }
 
 ReactDOM.render(

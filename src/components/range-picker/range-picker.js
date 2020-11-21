@@ -1,7 +1,7 @@
 import { Range, getTrackBackground } from "react-range";
 import "./range-picker.css";
 
-function RangePicker({ day, dayEvent, setRangeInput, updateHours }) {
+function RangePicker({ rangeValues, onChange, onFinalChange }) {
   return (
     <div
       style={{
@@ -19,16 +19,11 @@ function RangePicker({ day, dayEvent, setRangeInput, updateHours }) {
     >
       <Range
         step={0.5}
-        min={0.5}
-        max={24}
-        values={[dayEvent.hours]}
-        onFinalChange={(values) => {
-          setRangeInput(false);
-          updateHours(day.id, dayEvent, day.events, values[0], true);
-        }}
-        onChange={(values) =>
-          updateHours(day.id, dayEvent, day.events, values[0])
-        }
+        min={0}
+        max={23.5}
+        values={[rangeValues]}
+        onFinalChange={onFinalChange}
+        onChange={onChange}
         renderTrack={({ props, children }) => (
           <div
             onMouseDown={props.onMouseDown}
@@ -47,7 +42,7 @@ function RangePicker({ day, dayEvent, setRangeInput, updateHours }) {
                 width: "100%",
                 borderRadius: "8px",
                 background: getTrackBackground({
-                  values: [dayEvent.hours],
+                  values: [rangeValues],
                   colors: ["#817187", "#ccc"],
                   min: 0.5,
                   max: 24,
