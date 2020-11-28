@@ -3,6 +3,7 @@ import ContentEditable from "react-contenteditable";
 import Select from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faFolder } from "@fortawesome/free-solid-svg-icons";
+import isEmpty from "lodash/isEmpty";
 import Sidebar from "./components/sidebar";
 import RangePicker from "./components/range-picker";
 import EventCategory from "./components/event-category/event-category";
@@ -14,7 +15,7 @@ const projectSelectStyles = {
     ...provided,
     position: "absolute",
     top: "1.8rem",
-    left: "-7rem",
+    left: "-13rem",
     width: "14rem",
   }),
 };
@@ -29,6 +30,7 @@ function App() {
   const [showRangeInput, setRangeInput] = useState(false);
   const [showNewEventRange, toggleNewEventRange] = useState(false);
   const [showProjectSelect, toggleProjectSelect] = useState(false);
+  const [newEventSelectedProject, selectNewEventProject] = useState({});
   const [newEvent, setNewEvent] = useState({ hours: 0 });
   const descriptionText = useRef("");
 
@@ -90,6 +92,10 @@ function App() {
     updateActivity(dayId, updatedEvents);
   };
 
+  const isNewEventProjectSelected = () =>
+    !isEmpty(newEventSelectedProject) &&
+    newEventSelectedProject.name !== "No project";
+
   return (
     <div className="App">
       <Sidebar />
@@ -100,27 +106,48 @@ function App() {
             type="text"
             placeholder="What have you done?"
           />
+          {isNewEventProjectSelected() && (
+            <EventCategory
+              enableHover
+              name={newEventSelectedProject.name}
+              client={newEventSelectedProject.client}
+              themeColor={newEventSelectedProject.themeColor}
+              onClick={() => toggleProjectSelect(!showProjectSelect)}
+            />
+          )}
           <div className="new-activity--actions">
             <div className="new-activity--category">
-              <FontAwesomeIcon
-                icon={faFolder}
-                size="sm"
-                onClick={() => toggleProjectSelect(!showProjectSelect)}
-              />
+              {!isNewEventProjectSelected() && (
+                <FontAwesomeIcon
+                  icon={faFolder}
+                  size="sm"
+                  onClick={() => toggleProjectSelect(!showProjectSelect)}
+                />
+              )}
               {showProjectSelect && (
                 <Select
+                  placeholder={
+                    <span style={{ fontSize: "0.8rem" }}>
+                      Search by project
+                    </span>
+                  }
+                  menuIsOpen={true}
                   styles={projectSelectStyles}
                   defaultValue={projects[0].name}
                   isClearable
                   isSearchable
                   name="project"
                   formatOptionLabel={EventCategory}
-                  options={projects}
+                  options={[{ name: "No project" }, ...projects]}
                   filterOption={(project, input) => {
                     if (input) {
                       return project.data.name.toLowerCase().includes(input);
                     }
                     return true;
+                  }}
+                  onChange={(selectedProject) => {
+                    toggleProjectSelect(false);
+                    selectNewEventProject(selectedProject);
                   }}
                 />
               )}

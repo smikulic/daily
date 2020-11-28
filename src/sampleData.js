@@ -1,13 +1,5 @@
 export const projectData = [
   {
-    id: "0pro",
-    name: "No Project",
-    rate: 0,
-    currency: "",
-    client: "",
-    themeColor: "",
-  },
-  {
     id: "1pro",
     name: "Backoffice",
     rate: 60,
