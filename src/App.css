@@ -3,7 +3,7 @@
 }
 
 .activity {
-  margin-left: 9rem;
+  margin-left: 8rem;
   width: 100%;
 }
 
@@ -118,7 +118,7 @@
 .day-event--description {
   display: flex;
   align-items: center;
-  flex-basis: 50%;
+  flex-basis: 80%;
 }
 
 .day-event--description__editable {

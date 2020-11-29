@@ -1,15 +1,7 @@
 .day-event--category {
   display: flex;
   justify-content: flex-start;
-  flex-basis: 30%;
   font-size: 0.8rem;
-}
-
-.day-event--category > div {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  white-space: nowrap;
 }
 
 .day-event---project-client-wrapper {
@@ -17,6 +9,7 @@
   justify-content: flex-start;
   padding: 0.1rem 0.3rem;
   border-radius: 0.2rem;
+  white-space: nowrap;
   cursor: pointer;
 }
 .day-event---project-client-wrapper.editable,

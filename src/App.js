@@ -1,6 +1,11 @@
 import { useState, useRef } from "react";
 import ContentEditable from "react-contenteditable";
 import Select from "react-select";
+import DayPickerInput from "react-day-picker/DayPickerInput";
+import { DateUtils } from "react-day-picker";
+import "react-day-picker/lib/style.css";
+import dateFnsFormat from "date-fns/format";
+import dateFnsParse from "date-fns/parse";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faFolder } from "@fortawesome/free-solid-svg-icons";
 import isEmpty from "lodash/isEmpty";
@@ -10,12 +15,26 @@ import EventCategory from "./components/event-category/event-category";
 import { formatHours } from "./utils/formatHours";
 import "./App.css";
 
+function parseDate(str, format, locale) {
+  const parsed = dateFnsParse(str, format, new Date(), { locale });
+  if (DateUtils.isDate(parsed)) {
+    return parsed;
+  }
+  return undefined;
+}
+
+function formatDate(date, format, locale) {
+  return dateFnsFormat(date, format, { locale });
+}
+
+const DATE_FORMAT = "dd MMM";
+
 const projectSelectStyles = {
   container: (provided) => ({
     ...provided,
     position: "absolute",
     top: "1.8rem",
-    left: "-13rem",
+    right: "-0.5rem",
     width: "14rem",
   }),
 };
@@ -30,8 +49,11 @@ function App() {
   const [showRangeInput, setRangeInput] = useState(false);
   const [showNewEventRange, toggleNewEventRange] = useState(false);
   const [showProjectSelect, toggleProjectSelect] = useState(false);
-  const [newEventSelectedProject, selectNewEventProject] = useState({});
-  const [newEvent, setNewEvent] = useState({ hours: 0 });
+  const [newEvent, setNewEvent] = useState({
+    hours: 0,
+    project: {},
+    day: new Date(),
+  });
   const descriptionText = useRef("");
 
   const updateActivity = (dayId, updatedEvents, submitFlag = true) => {
@@ -93,8 +115,7 @@ function App() {
   };
 
   const isNewEventProjectSelected = () =>
-    !isEmpty(newEventSelectedProject) &&
-    newEventSelectedProject.name !== "No project";
+    !isEmpty(newEvent.project) && newEvent.project.name !== "No project";
 
   return (
     <div className="App">
@@ -106,18 +127,26 @@ function App() {
             type="text"
             placeholder="What have you done?"
           />
-          {isNewEventProjectSelected() && (
-            <EventCategory
-              enableHover
-              name={newEventSelectedProject.name}
-              client={newEventSelectedProject.client}
-              themeColor={newEventSelectedProject.themeColor}
-              onClick={() => toggleProjectSelect(!showProjectSelect)}
-            />
-          )}
+          <DayPickerInput
+            formatDate={formatDate}
+            format={DATE_FORMAT}
+            parseDate={parseDate}
+            placeholder={`${dateFnsFormat(new Date(), DATE_FORMAT)}`}
+            onDayChange={(selectedDay) =>
+              setNewEvent({ ...newEvent, day: selectedDay })
+            }
+          />
           <div className="new-activity--actions">
             <div className="new-activity--category">
-              {!isNewEventProjectSelected() && (
+              {isNewEventProjectSelected() ? (
+                <EventCategory
+                  enableHover
+                  name={newEvent.project.name}
+                  client={newEvent.project.client}
+                  themeColor={newEvent.project.themeColor}
+                  onClick={() => toggleProjectSelect(!showProjectSelect)}
+                />
+              ) : (
                 <FontAwesomeIcon
                   icon={faFolder}
                   size="sm"
@@ -147,7 +176,7 @@ function App() {
                   }}
                   onChange={(selectedProject) => {
                     toggleProjectSelect(false);
-                    selectNewEventProject(selectedProject);
+                    setNewEvent({ ...newEvent, project: selectedProject });
                   }}
                 />
               )}
@@ -222,13 +251,13 @@ function App() {
                                 }
                               }}
                             />
+                            <EventCategory
+                              enableHover
+                              name={dayEvent.project.name}
+                              client={dayEvent.project.client}
+                              themeColor={dayEvent.project.themeColor}
+                            />
                           </div>
-                          <EventCategory
-                            enableHover
-                            name={dayEvent.project.name}
-                            client={dayEvent.project.client}
-                            themeColor={dayEvent.project.themeColor}
-                          />
                           <div className="day-event--details">
                             <div className="day-event--billable">
                               {dayEvent.project.rate ? (
