@@ -42,7 +42,10 @@
   color: rgba(44, 19, 56, 0.5);
   cursor: pointer;
 }
-.new-activity--actions .new-activity--category .day-event---project-client-wrapper .tag {
+.new-activity--actions
+  .new-activity--category
+  .day-event---project-client-wrapper
+  .tag {
   font-size: 0.8rem;
 }
 
@@ -51,11 +54,13 @@
 }
 
 .new-activity--actions .new-activity--submit {
+  z-index: 2;
   color: #dd6fd1;
   cursor: pointer;
 }
 
 .DayPickerInput {
+  z-index: 1;
   display: flex;
   margin-right: 0.3rem;
 }
@@ -74,11 +79,8 @@
   background-color: rgba(44, 19, 56, 0.1);
 }
 .DayPickerInput .DayPickerInput-Overlay {
-  z-index: 1;
-  top: 0.6rem;
-  left: 50%;
-  transform: translateX(-50%);
-  line-height: 0.8rem;
+  top: 1.7rem;
+  transform: translateX(-66%);
 }
 .DayPickerInput .DayPickerInput-Overlay .DayPicker {
   font-size: 0.8rem;

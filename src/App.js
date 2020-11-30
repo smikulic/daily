@@ -54,6 +54,10 @@ const projectSelectStyles = {
     boxShadow: "0 2px 5px rgba(0, 0, 0, 0.15)",
     border: 0,
   }),
+  option: (provided) => ({
+    ...provided,
+    cursor: "pointer",
+  }),
 };
 
 function App() {
@@ -198,6 +202,7 @@ function App() {
               onDayChange={(selectedDay) =>
                 setNewEvent({ ...newEvent, day: selectedDay })
               }
+              showOverlay
             />
             <div
               className="day-event--hours"
