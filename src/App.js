@@ -32,10 +32,27 @@ const DATE_FORMAT = "dd MMM";
 const projectSelectStyles = {
   container: (provided) => ({
     ...provided,
+    zIndex: "1",
     position: "absolute",
     top: "1.8rem",
-    right: "-0.5rem",
+    left: "50%",
+    transform: "translateX(-50%)",
     width: "14rem",
+  }),
+  indicatorsContainer: () => ({
+    display: "none",
+  }),
+  control: (provided) => ({
+    ...provided,
+    marginBottom: "0.25rem",
+    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.15)",
+    border: 0,
+  }),
+  menu: (provided) => ({
+    ...provided,
+    margin: "0",
+    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.15)",
+    border: 0,
   }),
 };
 
@@ -127,15 +144,6 @@ function App() {
             type="text"
             placeholder="What have you done?"
           />
-          <DayPickerInput
-            formatDate={formatDate}
-            format={DATE_FORMAT}
-            parseDate={parseDate}
-            placeholder={`${dateFnsFormat(new Date(), DATE_FORMAT)}`}
-            onDayChange={(selectedDay) =>
-              setNewEvent({ ...newEvent, day: selectedDay })
-            }
-          />
           <div className="new-activity--actions">
             <div className="new-activity--category">
               {isNewEventProjectSelected() ? (
@@ -155,17 +163,18 @@ function App() {
               )}
               {showProjectSelect && (
                 <Select
+                  autoFocus
+                  menuIsOpen
+                  isClearable
+                  isSearchable
+                  name="project"
                   placeholder={
                     <span style={{ fontSize: "0.8rem" }}>
                       Search by project
                     </span>
                   }
-                  menuIsOpen={true}
                   styles={projectSelectStyles}
                   defaultValue={projects[0].name}
-                  isClearable
-                  isSearchable
-                  name="project"
                   formatOptionLabel={EventCategory}
                   options={[{ name: "No project" }, ...projects]}
                   filterOption={(project, input) => {
@@ -181,6 +190,15 @@ function App() {
                 />
               )}
             </div>
+            <DayPickerInput
+              formatDate={formatDate}
+              format={DATE_FORMAT}
+              parseDate={parseDate}
+              placeholder={`${dateFnsFormat(new Date(), DATE_FORMAT)}`}
+              onDayChange={(selectedDay) =>
+                setNewEvent({ ...newEvent, day: selectedDay })
+              }
+            />
             <div
               className="day-event--hours"
               onClick={() => toggleNewEventRange(true)}
@@ -192,16 +210,16 @@ function App() {
             <div className="new-activity--submit">
               <FontAwesomeIcon icon={faCheckCircle} size="2x" />
             </div>
+            {showNewEventRange && (
+              <RangePicker
+                rangeValues={newEvent.hours}
+                onChange={(rangeValues) =>
+                  setNewEvent({ ...newEvent, hours: rangeValues })
+                }
+                onFinalChange={() => toggleNewEventRange(false)}
+              />
+            )}
           </div>
-          {showNewEventRange && (
-            <RangePicker
-              rangeValues={newEvent.hours}
-              onChange={(rangeValues) =>
-                setNewEvent({ ...newEvent, hours: rangeValues })
-              }
-              onFinalChange={() => toggleNewEventRange(false)}
-            />
-          )}
         </div>
         {activities.length &&
           activities.map((day, activityKey) => {

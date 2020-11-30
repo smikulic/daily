@@ -24,7 +24,7 @@
 
 .day-event--project .tag,
 .day-event--client .tag {
-  padding: 0.1rem 0.6rem;
+  padding: 0 0.6rem;
   font-size: 0.75rem;
   color: #817187;
 }

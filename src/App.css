@@ -38,9 +38,12 @@
 
 .new-activity--actions .new-activity--category {
   position: relative;
-  margin-right: 1rem;
+  margin-right: 0.3rem;
   color: rgba(44, 19, 56, 0.5);
   cursor: pointer;
+}
+.new-activity--actions .new-activity--category .day-event---project-client-wrapper .tag {
+  font-size: 0.8rem;
 }
 
 .new-activity--actions .new-activity--category:hover {
@@ -50,6 +53,35 @@
 .new-activity--actions .new-activity--submit {
   color: #dd6fd1;
   cursor: pointer;
+}
+
+.DayPickerInput {
+  display: flex;
+  margin-right: 0.3rem;
+}
+.DayPickerInput input {
+  padding: 0.1rem 0.3rem;
+  width: 4rem;
+  font-family: "Roboto", "Oxygen", "Helvetica Neue", sans-serif;
+  font-size: 0.8rem;
+  text-align: center;
+  outline: 0;
+  border: 0;
+  border-radius: 0.2rem;
+  cursor: pointer;
+}
+.DayPickerInput input:hover {
+  background-color: rgba(44, 19, 56, 0.1);
+}
+.DayPickerInput .DayPickerInput-Overlay {
+  z-index: 1;
+  top: 0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  line-height: 0.8rem;
+}
+.DayPickerInput .DayPickerInput-Overlay .DayPicker {
+  font-size: 0.8rem;
 }
 
 .day {
@@ -175,12 +207,15 @@
   color: #b32323;
 }
 
+.day-event--hours {
+  display: flex;
+}
 .day-event--hours .hour {
   padding: 0.1rem 0.3rem;
+  font-size: 0.8rem;
   border-radius: 0.2rem;
   cursor: pointer;
 }
-
 .day-event--hours .hour.editable,
 .day-event--hours .hour:hover {
   background-color: rgba(44, 19, 56, 0.1);
