@@ -1,5 +1,4 @@
 import { Range, getTrackBackground } from "react-range";
-import "./range-picker.css";
 
 function RangePicker({ rangeValues, onChange, onFinalChange }) {
   return (

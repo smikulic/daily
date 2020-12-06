@@ -74,6 +74,7 @@ function App() {
     hours: 0,
     project: {},
     day: new Date(),
+    description: "",
   });
   const descriptionText = useRef("");
 
@@ -138,6 +139,10 @@ function App() {
   const isNewEventProjectSelected = () =>
     !isEmpty(newEvent.project) && newEvent.project.name !== "No project";
 
+  const createEvent = () => {
+    console.log(newEvent);
+  };
+
   return (
     <div className="App">
       <Sidebar />
@@ -145,8 +150,11 @@ function App() {
         <div className="new-activity">
           <input
             className="new-activity--description"
-            type="text"
             placeholder="What have you done?"
+            type="text"
+            onChange={(e) =>
+              setNewEvent({ ...newEvent, description: e.target.value })
+            }
           />
           <div className="new-activity--actions">
             <div className="new-activity--category">
@@ -212,7 +220,7 @@ function App() {
                 {formatHours(newEvent.hours)}
               </span>
             </div>
-            <div className="new-activity--submit">
+            <div className="new-activity--submit" onClick={createEvent}>
               <FontAwesomeIcon icon={faCheckCircle} size="2x" />
             </div>
             {showNewEventRange && (

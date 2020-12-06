@@ -1,4 +1,29 @@
-import "./event-category.css";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
+
+const cssColorGray = "#817187";
+const cssPositionRelative = css`
+  position: relative;
+`;
+const cssFlexStart = css`
+  display: flex;
+  justify-content: flex-start;
+`;
+const cssEventTag = css`
+  padding: 0 0.6rem;
+  font-size: 0.75rem;
+  color: ${cssColorGray};
+  &:before {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: ${cssColorGray};
+  }
+`;
 
 function EventCategory({
   name,
@@ -8,20 +33,49 @@ function EventCategory({
   onClick,
 }) {
   return (
-    <div className="day-event--category" onClick={onClick}>
+    <div
+      css={css`
+        ${cssFlexStart};
+        font-size: 0.8rem;
+      `}
+      onClick={onClick}
+    >
       <span
-        className={`day-event---project-client-wrapper ${
-          enableHover && "hover"
-        }`}
+        css={css`
+          ${cssFlexStart};
+          padding: 0.1rem 0.3rem;
+          border-radius: 0.2rem;
+          white-space: nowrap;
+          cursor: pointer;
+          &:hover {
+            background-color: ${enableHover
+              ? "rgba(44, 19, 56, 0.1)"
+              : "transparent"};
+          }
+        `}
       >
-        <div className="day-event--project">
-          <span className="tag" style={{ color: themeColor || "#817187" }}>
+        <div css={cssPositionRelative}>
+          <span
+            css={css`
+              ${cssEventTag}
+              color: ${themeColor || cssColorGray}
+            `}
+          >
             {name}
           </span>
         </div>
         {client && (
-          <div className="day-event--client">
-            <span className="tag">{client}</span>
+          <div css={cssPositionRelative}>
+            <span
+              css={css`
+                ${cssEventTag}
+                &:before {
+                  background-color: ${cssColorGray};
+                }
+              `}
+            >
+              {client}
+            </span>
           </div>
         )}
       </span>
