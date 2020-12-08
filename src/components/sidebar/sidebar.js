@@ -1,15 +1,70 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
+import { Link, useLocation } from "react-router-dom";
 import logo from "./logo.svg";
-import "./sidebar.css";
+
+const cssColorPurple = "#2c1338";
+const cssColorBeige = "rgba(253, 229, 220, 1)";
+const cssColorBeigeLight = "rgba(253, 229, 220, 0.5)";
+const cssFlexColumn = css`
+  display: flex;
+  flex-direction: column;
+`;
+const cssNavigation = css`
+  ${cssFlexColumn};
+  margin-top: 1rem;
+`;
+const cssNavigationItem = (active) => css`
+  display: flex;
+  padding: 0.25rem 0.75rem;
+  color: ${active ? cssColorBeige : cssColorBeigeLight};
+  text-decoration: none;
+  &:hover {
+    color: ${cssColorBeige};
+  }
+`;
 
 function Sidebar() {
+  const location = useLocation();
   return (
-    <div className="sidebar">
-      <img src={logo} className="logo" alt="logo" />
-      <div className="navigation">
-        <div className="navigation-item active">Tracker</div>
-        <div className="navigation-item">Projects</div>
-        <div className="navigation-item">Clients</div>
-        <div className="navigation-item">Insight</div>
+    <div
+      css={css`
+        ${cssFlexColumn};
+        position: fixed;
+        align-items: center;
+        padding: 1rem 0;
+        height: 100vh;
+        width: 8rem;
+        background-color: ${cssColorPurple};
+      `}
+    >
+      <img
+        src={logo}
+        css={css`
+          height: 2rem;
+        `}
+        alt="logo"
+      />
+      <div css={cssNavigation}>
+        <Link to="/" css={cssNavigationItem(location.pathname === "/")}>
+          Tracker
+        </Link>
+
+        <Link
+          to="/projects"
+          css={cssNavigationItem(location.pathname === "/projects")}
+        >
+          Projects
+        </Link>
+
+        <Link
+          to="/clients"
+          css={cssNavigationItem(location.pathname === "/clients")}
+        >
+          Clients
+        </Link>
+
+        {/* <div className="navigation-item"><Link to="/insight">Insight</Link></div> */}
       </div>
     </div>
   );

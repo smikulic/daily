@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { activityData, projectData } from "./sampleData.js";
+import "./index.css";
 
 if (localStorage.getItem("daily__activity") === null) {
   localStorage.setItem("daily__activity", JSON.stringify(activityData));
