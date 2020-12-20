@@ -1,7 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import {
+  ApolloLink,
+  ApolloClient,
+  ApolloProvider,
+  InMemoryCache,
+  HttpLink,
+  concat,
+} from "@apollo/client";
+import App from "./App";
 import { activityData, projectData } from "./sampleData.js";
 import "./index.css";
 
@@ -12,10 +20,32 @@ if (localStorage.getItem("daily__projects") === null) {
   localStorage.setItem("daily__projects", JSON.stringify(projectData));
 }
 
+const httpLink = new HttpLink({
+  uri: "http://localhost:4000",
+});
+
+const authMiddleware = new ApolloLink((operation, forward) => {
+  // add the authorization to the headers
+  operation.setContext({
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("daily__token") || null}`,
+    },
+  });
+
+  return forward(operation);
+});
+
+const client = new ApolloClient({
+  link: concat(authMiddleware, httpLink),
+  cache: new InMemoryCache(),
+});
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <ApolloProvider client={client}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </ApolloProvider>,
   document.getElementById("root")
 );
 

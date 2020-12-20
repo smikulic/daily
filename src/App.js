@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Sidebar from "./components/sidebar";
-import TrackerPage from "./pages/tracker-page";
+import { PrivateRoute } from "./router";
+import TrackerPageContainer from "./containers/tracker-page-container";
+import LoginPageContainer from "./containers/login-page-container";
 import ProjectPage from "./pages/project-page";
 
 export default function App() {
@@ -13,7 +14,6 @@ export default function App() {
           display: flex;
         `}
       >
-        <Sidebar />
         {/*
           A <Switch> looks through all its children <Route>
           elements and renders the first one whose path
@@ -22,9 +22,12 @@ export default function App() {
           of them to render at a time
         */}
         <Switch>
-          <Route exact path="/">
-            <TrackerPage />
+          <Route exact path="/login">
+            <LoginPageContainer />
           </Route>
+          <PrivateRoute exact path="/">
+            <TrackerPageContainer />
+          </PrivateRoute>
           <Route path="/projects">
             <ProjectPage />
           </Route>
