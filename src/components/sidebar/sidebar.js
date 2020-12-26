@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import logo from "./logo.svg";
 
 const cssColorPurple = "#2c1338";
@@ -13,12 +13,14 @@ const cssFlexColumn = css`
 const cssNavigation = css`
   ${cssFlexColumn};
   margin-top: 1rem;
+  flex-grow: 1;
 `;
 const cssNavigationItem = (active) => css`
   display: flex;
   padding: 0.25rem 0.75rem;
   color: ${active ? cssColorBeige : cssColorBeigeLight};
   text-decoration: none;
+  cursor: pointer;
   &:hover {
     color: ${cssColorBeige};
   }
@@ -26,6 +28,7 @@ const cssNavigationItem = (active) => css`
 
 function Sidebar() {
   const location = useLocation();
+  let history = useHistory();
   return (
     <div
       css={css`
@@ -65,6 +68,15 @@ function Sidebar() {
         </Link>
 
         {/* <div className="navigation-item"><Link to="/insight">Insight</Link></div> */}
+      </div>
+      <div
+        css={cssNavigationItem()}
+        onClick={() => {
+          localStorage.removeItem("daily__token");
+          history.push("/");
+        }}
+      >
+        Log Out
       </div>
     </div>
   );

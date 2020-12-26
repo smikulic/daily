@@ -3,8 +3,8 @@ import { useHistory } from "react-router-dom";
 import { gql, useMutation } from "@apollo/client";
 
 const LOGIN = gql`
-  mutation Login {
-    login(email: "admin@test.com", password: "admin") {
+  mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
       token
       user {
         id
@@ -28,7 +28,7 @@ export default function LoginPageContainer() {
   // if (loading) return <p>Loading...</p>;
   // if (error) return <p>Error :(</p>;
 
-  if (data && data.login) {
+  if (data && data.login && data.login.token) {
     console.log(data.login);
     localStorage.setItem("daily__token", data.login.token);
     history.push("/");

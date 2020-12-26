@@ -28,9 +28,9 @@ export default function App() {
           <PrivateRoute exact path="/">
             <TrackerPageContainer />
           </PrivateRoute>
-          <Route path="/projects">
+          <PrivateRoute exact path="/projects">
             <ProjectPage />
-          </Route>
+          </PrivateRoute>
         </Switch>
       </div>
     </Router>
