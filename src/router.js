@@ -1,5 +1,12 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { Route, Redirect } from "react-router-dom";
 import Sidebar from "./components/sidebar";
+
+const cssMainContainer = css`
+  margin-left: 8rem;
+  width: 100%;
+`;
 
 // A wrapper for <Route> that redirects to the login
 // screen if you're not yet authenticated.
@@ -11,7 +18,7 @@ export function PrivateRoute({ children, ...rest }) {
         localStorage.getItem("daily__token") || null ? (
           <>
             <Sidebar />
-            {children}
+            <div css={cssMainContainer}>{children}</div>
           </>
         ) : (
           <Redirect

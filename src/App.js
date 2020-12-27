@@ -2,9 +2,9 @@
 import { css } from "@emotion/react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { PrivateRoute } from "./router";
-import TrackerPageContainer from "./containers/tracker-page-container";
 import LoginPageContainer from "./containers/login-page-container";
-import ProjectPage from "./pages/project-page";
+import TrackerPageContainer from "./containers/tracker-page-container";
+import ProjectPageContainer from "./containers/project-page-container";
 
 export default function App() {
   return (
@@ -29,7 +29,7 @@ export default function App() {
             <TrackerPageContainer />
           </PrivateRoute>
           <PrivateRoute exact path="/projects">
-            <ProjectPage />
+            <ProjectPageContainer />
           </PrivateRoute>
         </Switch>
       </div>

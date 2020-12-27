@@ -143,7 +143,7 @@ function TrackerPage() {
   };
 
   return (
-    <div className="activity">
+    <>
       <div className="new-activity">
         <input
           className="new-activity--description"
@@ -346,7 +346,7 @@ function TrackerPage() {
             </div>
           );
         })}
-    </div>
+    </>
   );
 }
 
