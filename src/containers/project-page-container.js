@@ -3,10 +3,13 @@ import ProjectPage from "../pages/project-page";
 
 const PROJECTS = gql`
   query GetProjects {
-    projects {
+    projectsWithTotalHours {
       id
       name
       rate
+      currency
+      themeColor
+      totalHours
     }
   }
 `;
@@ -19,5 +22,5 @@ export default function ProjectPageContainer({ children }) {
   if (error) return <p>Error :(</p>;
   console.log(data);
 
-  return <ProjectPage projects={data.projects} />;
+  return <ProjectPage projects={data.projectsWithTotalHours} />;
 }
