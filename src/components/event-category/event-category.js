@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { cssColorGray, cssColorActionBackground } from "../../style/patterns";
 
-const cssColorGray = "#817187";
 const cssPositionRelative = css`
   position: relative;
 `;
@@ -49,7 +49,7 @@ function EventCategory({
           cursor: pointer;
           &:hover {
             background-color: ${enableHover
-              ? "rgba(44, 19, 56, 0.1)"
+              ? cssColorActionBackground
               : "transparent"};
           }
         `}

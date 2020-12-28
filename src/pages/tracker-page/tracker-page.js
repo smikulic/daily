@@ -11,6 +11,7 @@ import { faCheckCircle, faFolder } from "@fortawesome/free-solid-svg-icons";
 import isEmpty from "lodash/isEmpty";
 import RangePicker from "../../components/range-picker";
 import EventCategory from "../../components/event-category/event-category";
+import RemoveAction from "../../components/remove-action";
 import { formatHours } from "../../utils/formatHours";
 import "./tracker-page.css";
 
@@ -314,7 +315,9 @@ function TrackerPage() {
                               {formatHours(dayEvent.hours)}
                             </span>
                           </div>
-                          <div className="day-event--edit">Clear</div>
+                          <div className="day-event--edit">
+                            <RemoveAction />
+                          </div>
                         </div>
                         {showRangeInput === dayEvent.id && (
                           <RangePicker

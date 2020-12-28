@@ -189,15 +189,6 @@
 .day-event--details .day-event--edit {
   flex-basis: 20%;
   justify-content: center;
-  font-size: 0.6rem;
-  border-radius: 0.5rem;
-  color: transparent;
-  cursor: pointer;
-}
-
-.day-event--details .day-event--edit:hover {
-  background-color: rgba(44, 19, 56, 0.1);
-  color: #b32323;
 }
 
 .day-event--hours {
