@@ -54,13 +54,6 @@ function Sidebar() {
         </Link>
 
         <Link
-          to="/projects"
-          css={cssNavigationItem(location.pathname === "/projects")}
-        >
-          Projects
-        </Link>
-
-        <Link
           to="/clients"
           css={cssNavigationItem(location.pathname === "/clients")}
         >

@@ -118,12 +118,6 @@
   flex-basis: 20%;
 }
 
-.currency,
-.time-format {
-  margin-left: 0.25rem;
-  color: #817187;
-}
-
 .day-events {
   display: flex;
   flex-direction: column;

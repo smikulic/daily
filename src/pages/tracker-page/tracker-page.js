@@ -12,6 +12,7 @@ import isEmpty from "lodash/isEmpty";
 import RangePicker from "../../components/range-picker";
 import EventCategory from "../../components/event-category/event-category";
 import RemoveAction from "../../components/remove-action";
+import UnitFormatter from "../../components/unit-formatter";
 import { formatHours } from "../../utils/formatHours";
 import "./tracker-page.css";
 
@@ -242,8 +243,7 @@ function TrackerPage() {
                 </div>
                 <div className="day-summary--details">
                   <div className="day-summary--hours">
-                    {formatHours(totalHours)}{" "}
-                    <span className="time-format">h</span>
+                    {formatHours(totalHours)} <UnitFormatter>h</UnitFormatter>
                   </div>
                   <div className="day-summary--actions"></div>
                 </div>
@@ -287,9 +287,9 @@ function TrackerPage() {
                             {dayEvent.project.rate ? (
                               <>
                                 {dayEvent.project.rate * dayEvent.hours}{" "}
-                                <span className="currency">
+                                <UnitFormatter>
                                   {dayEvent.project.currency}
-                                </span>
+                                </UnitFormatter>
                               </>
                             ) : (
                               "\u2013"

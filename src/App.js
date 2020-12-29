@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { PrivateRoute } from "./router";
 import LoginPageContainer from "./containers/login-page-container";
 import TrackerPageContainer from "./containers/tracker-page-container";
-import ProjectPageContainer from "./containers/project-page-container";
+import ClientPageContainer from "./containers/client-page-container";
 
 export default function App() {
   return (
@@ -28,8 +28,8 @@ export default function App() {
           <PrivateRoute exact path="/">
             <TrackerPageContainer />
           </PrivateRoute>
-          <PrivateRoute exact path="/projects">
-            <ProjectPageContainer />
+          <PrivateRoute exact path="/clients">
+            <ClientPageContainer />
           </PrivateRoute>
         </Switch>
       </div>
