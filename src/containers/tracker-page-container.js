@@ -1,19 +1,37 @@
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, gql } from "@apollo/client";
 import TrackerPage from "../pages/tracker-page";
 
-const USERS = gql`
-  query GetUsers {
-    users {
-      email
+const GET_ACTIVITIES = gql`
+  query GetActivities {
+    activities {
+      key
+      date
+      events {
+        id
+        description
+        date
+        hours
+        clientId
+        userId
+        client {
+          id
+          name
+          themeColor
+          rate
+          currency
+        }
+      }
     }
   }
 `;
 
 export default function TrackerPageContainer({ children }) {
-  const { loading, error, data } = useQuery(USERS);
+  const { loading, error, data } = useQuery(GET_ACTIVITIES, {
+    fetchPolicy: "cache-and-network",
+  });
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-  console.log(data)
+  console.log(data);
 
-  return <TrackerPage />;
+  return <TrackerPage activitiesData={data.activities} />;
 }

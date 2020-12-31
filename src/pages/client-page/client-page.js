@@ -26,7 +26,7 @@ const cssCellName = css`
   text-align: left;
 `;
 
-function ClientPage({ clients }) {
+function ClientPage({ clientsData }) {
   return (
     <>
       <div className="day">
@@ -36,8 +36,8 @@ function ClientPage({ clients }) {
           <span css={cssCellHeader}>Rate</span>
           <span css={cssCellHeader}>Billed</span>
           <span css={cssCellHeader}></span>
-          {clients.length &&
-            clients.map((client) => {
+          {clientsData.length &&
+            clientsData.map((client) => {
               const formattedRate = new Intl.NumberFormat().format(client.rate);
               const formattedTotalBilled = new Intl.NumberFormat().format(
                 client.totalBilled

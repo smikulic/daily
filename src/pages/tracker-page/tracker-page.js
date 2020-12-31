@@ -61,12 +61,13 @@ const projectSelectStyles = {
   }),
 };
 
-function TrackerPage() {
+function TrackerPage({ activitiesData }) {
   const [projects] = useState(
     JSON.parse(localStorage.getItem("daily__projects")) || []
   );
   const [activities, setActivities] = useState(
-    JSON.parse(localStorage.getItem("daily__activity")) || []
+    activitiesData || []
+    // JSON.parse(localStorage.getItem("daily__activity")) || []
   );
   const [showRangeInput, setRangeInput] = useState(false);
   const [showNewEventRange, toggleNewEventRange] = useState(false);
@@ -231,12 +232,12 @@ function TrackerPage() {
         </div>
       </div>
       {activities.length &&
-        activities.map((day, activityKey) => {
+        activities.map((day) => {
           let totalHours = 0;
           day.events.forEach((dayEvent) => (totalHours += dayEvent.hours));
 
           return (
-            <div className="day" key={activityKey}>
+            <div className="day" key={day.key}>
               <div className="day-summary">
                 <div className="day-summary--date">
                   {dateFnsFormat(new Date(day.date), "E, dd MMM")}
@@ -251,8 +252,9 @@ function TrackerPage() {
               <div className="day-events">
                 {day.events.length &&
                   day.events.map((dayEvent, eventKey) => {
+                    console.log(dayEvent);
                     return (
-                      <div className="day-event" key={eventKey}>
+                      <div className="day-event" key={dayEvent.id}>
                         <div className="day-event--description">
                           <ContentEditable
                             className="day-event--description__editable"
@@ -277,18 +279,18 @@ function TrackerPage() {
                           />
                           <EventCategory
                             enableHover
-                            name={dayEvent.project.name}
-                            client={dayEvent.project.client}
-                            themeColor={dayEvent.project.themeColor}
+                            name={dayEvent.client.name}
+                            // client={dayEvent.project.client}
+                            themeColor={dayEvent.client.themeColor}
                           />
                         </div>
                         <div className="day-event--details">
                           <div className="day-event--billable">
-                            {dayEvent.project.rate ? (
+                            {dayEvent.client.rate ? (
                               <>
-                                {dayEvent.project.rate * dayEvent.hours}{" "}
+                                {dayEvent.client.rate * dayEvent.hours}{" "}
                                 <UnitFormatter>
-                                  {dayEvent.project.currency}
+                                  {dayEvent.client.currency}
                                 </UnitFormatter>
                               </>
                             ) : (
