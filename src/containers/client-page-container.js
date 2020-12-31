@@ -3,7 +3,7 @@ import ClientPage from "../pages/client-page";
 
 const CLIENTS = gql`
   query GetClients {
-    projectsWithTotalHours {
+    clientsWithTotalHours {
       id
       name
       rate
@@ -23,5 +23,5 @@ export default function ClientPageContainer({ children }) {
   if (error) return <p>Error :(</p>;
   console.log(data);
 
-  return <ClientPage clients={data.projectsWithTotalHours} />;
+  return <ClientPage clients={data.clientsWithTotalHours} />;
 }
