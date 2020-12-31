@@ -251,8 +251,7 @@ function TrackerPage({ activitiesData }) {
               </div>
               <div className="day-events">
                 {day.events.length &&
-                  day.events.map((dayEvent, eventKey) => {
-                    console.log(dayEvent);
+                  day.events.map((dayEvent) => {
                     return (
                       <div className="day-event" key={dayEvent.id}>
                         <div className="day-event--description">
