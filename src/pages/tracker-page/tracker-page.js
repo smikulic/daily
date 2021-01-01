@@ -1,35 +1,43 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { useState, useEffect, useRef } from "react";
 import ContentEditable from "react-contenteditable";
 import Select from "react-select";
 import DayPickerInput from "react-day-picker/DayPickerInput";
-import { DateUtils } from "react-day-picker";
 import "react-day-picker/lib/style.css";
 import dateFnsFormat from "date-fns/format";
-import dateFnsParse from "date-fns/parse";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle, faFolder } from "@fortawesome/free-solid-svg-icons";
+import { faFolder } from "@fortawesome/free-solid-svg-icons";
 import isEmpty from "lodash/isEmpty";
 import RangePicker from "../../components/range-picker";
 import EventCategory from "../../components/event-category/event-category";
-import RemoveAction from "../../components/remove-action";
+import HeaderWrapper from "../../components/header-wrapper";
 import UnitFormatter from "../../components/unit-formatter";
+import RemoveAction from "../../components/remove-action";
 import LoadSpinner from "../../components/load-spinner";
-import { formatHours } from "../../utils/formatHours";
+import {
+  formatHours,
+  parseDate,
+  formatDate,
+  DATE_FORMAT,
+} from "../../utils/date";
+import { cssListWrapper, cssColorActionBackground } from "../../style/patterns";
 import "./tracker-page.css";
 
-function parseDate(str, format, locale) {
-  const parsed = dateFnsParse(str, format, new Date(), { locale });
-  if (DateUtils.isDate(parsed)) {
-    return parsed;
+const cssHour = css`
+  padding: 0.1rem 0.3rem;
+  font-size: 0.8rem;
+  border-radius: 0.2rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${cssColorActionBackground};
   }
-  return undefined;
-}
-
-function formatDate(date, format, locale) {
-  return dateFnsFormat(date, format, { locale });
-}
-
-const DATE_FORMAT = "dd MMM";
+`;
+const cssHourEditable = css`
+  ${cssHour};
+  background-color: ${cssColorActionBackground};
+`;
 
 const projectSelectStyles = {
   container: (provided) => ({
@@ -150,97 +158,104 @@ function TrackerPage({ activitiesData }) {
 
   return (
     <>
-      <div className="new-activity">
-        <input
-          className="new-activity--description"
-          placeholder="What have you done?"
-          type="text"
-          onChange={(e) =>
-            setNewEvent({ ...newEvent, description: e.target.value })
-          }
-        />
-        <div className="new-activity--actions">
-          <div className="new-activity--category">
-            {isNewEventProjectSelected() ? (
-              <EventCategory
-                enableHover
-                name={newEvent.project.name}
-                client={newEvent.project.client}
-                themeColor={newEvent.project.themeColor}
-                onClick={() => toggleProjectSelect(!showProjectSelect)}
-              />
-            ) : (
-              <FontAwesomeIcon
-                icon={faFolder}
-                size="sm"
-                onClick={() => toggleProjectSelect(!showProjectSelect)}
-              />
-            )}
-            {showProjectSelect && (
-              <Select
-                autoFocus
-                menuIsOpen
-                isClearable
-                isSearchable
-                name="project"
-                placeholder={
-                  <span style={{ fontSize: "0.8rem" }}>Search by project</span>
-                }
-                styles={projectSelectStyles}
-                defaultValue={projects[0].name}
-                formatOptionLabel={EventCategory}
-                options={[{ name: "No project" }, ...projects]}
-                filterOption={(project, input) => {
-                  if (input) {
-                    return project.data.name.toLowerCase().includes(input);
-                  }
-                  return true;
-                }}
-                onChange={(selectedProject) => {
-                  toggleProjectSelect(false);
-                  setNewEvent({ ...newEvent, project: selectedProject });
-                }}
-              />
-            )}
-          </div>
-          <DayPickerInput
-            formatDate={formatDate}
-            format={DATE_FORMAT}
-            parseDate={parseDate}
-            placeholder={`${dateFnsFormat(new Date(), DATE_FORMAT)}`}
-            onDayChange={(selectedDay) =>
-              setNewEvent({ ...newEvent, day: selectedDay })
+      <HeaderWrapper
+        headerInputPlaceholder="What have you done?"
+        headerInputOnChange={(e) =>
+          setNewEvent({ ...newEvent, description: e.target.value })
+        }
+        headerSubmitOnClick={createEvent}
+      >
+        <div
+          css={css`
+            position: relative;
+            margin-right: 0.3rem;
+            color: rgba(44, 19, 56, 0.5);
+            cursor: pointer;
+
+            &:hover {
+              color: rgba(44, 19, 56, 1);
             }
-          />
-          <div
-            className="day-event--hours"
-            onClick={() => toggleNewEventRange(true)}
-          >
-            <span className={showNewEventRange ? "hour editable" : "hour"}>
-              {formatHours(newEvent.hours)}
-            </span>
-          </div>
-          <div className="new-activity--submit" onClick={createEvent}>
-            <FontAwesomeIcon icon={faCheckCircle} size="2x" />
-          </div>
-          {showNewEventRange && (
-            <RangePicker
-              rangeValues={newEvent.hours}
-              onChange={(rangeValues) =>
-                setNewEvent({ ...newEvent, hours: rangeValues })
+          `}
+        >
+          {isNewEventProjectSelected() ? (
+            <EventCategory
+              enableHover
+              name={newEvent.project.name}
+              client={newEvent.project.client}
+              themeColor={newEvent.project.themeColor}
+              onClick={() => toggleProjectSelect(!showProjectSelect)}
+            />
+          ) : (
+            <FontAwesomeIcon
+              icon={faFolder}
+              size="sm"
+              onClick={() => toggleProjectSelect(!showProjectSelect)}
+            />
+          )}
+          {showProjectSelect && (
+            <Select
+              autoFocus
+              menuIsOpen
+              isClearable
+              isSearchable
+              name="project"
+              placeholder={
+                <span style={{ fontSize: "0.8rem" }}>Search by project</span>
               }
-              onFinalChange={() => toggleNewEventRange(false)}
+              styles={projectSelectStyles}
+              defaultValue={projects[0].name}
+              formatOptionLabel={EventCategory}
+              options={[{ name: "No project" }, ...projects]}
+              filterOption={(project, input) => {
+                if (input) {
+                  return project.data.name.toLowerCase().includes(input);
+                }
+                return true;
+              }}
+              onChange={(selectedProject) => {
+                toggleProjectSelect(false);
+                setNewEvent({ ...newEvent, project: selectedProject });
+              }}
             />
           )}
         </div>
-      </div>
+        <DayPickerInput
+          formatDate={formatDate}
+          format={DATE_FORMAT}
+          parseDate={parseDate}
+          placeholder={`${dateFnsFormat(new Date(), DATE_FORMAT)}`}
+          onDayChange={(selectedDay) =>
+            setNewEvent({ ...newEvent, day: selectedDay })
+          }
+        />
+        <div
+          css={css`
+            margin-right: 0.6rem;
+            display: flex;
+          `}
+          onClick={() => toggleNewEventRange(true)}
+        >
+          <span css={showNewEventRange ? cssHourEditable : cssHour}>
+            {formatHours(newEvent.hours)}
+          </span>
+        </div>
+        {showNewEventRange && (
+          <RangePicker
+            rangeValues={newEvent.hours}
+            onChange={(rangeValues) =>
+              setNewEvent({ ...newEvent, hours: rangeValues })
+            }
+            onFinalChange={() => toggleNewEventRange(false)}
+          />
+        )}
+      </HeaderWrapper>
       {activities.length ? (
         activities.map((day) => {
           let totalHours = 0;
           day.events.forEach((dayEvent) => (totalHours += dayEvent.hours));
 
           return (
-            <div className="day" key={day.key}>
+            <div css={cssListWrapper} key={day.key}>
               <div className="day-summary">
                 <div className="day-summary--date">
                   {dateFnsFormat(new Date(day.date), "E, dd MMM")}
@@ -354,7 +369,7 @@ function TrackerPage({ activitiesData }) {
           );
         })
       ) : (
-        <div className="day">
+        <div css={cssListWrapper}>
           <div className="day-summary">
             <LoadSpinner />
           </div>

@@ -1,15 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
 import { css } from "@emotion/react";
+import React from "react";
 import RemoveAction from "../../components/remove-action";
 import UnitFormatter from "../../components/unit-formatter";
 import LoadSpinner from "../../components/load-spinner";
+import HeaderWrapper from "../../components/header-wrapper";
+import { cssListWrapper } from "../../style/patterns";
 
 const cssTableWrapper = css`
   display: grid;
   grid-template-columns: 10fr 2fr 2fr 2fr 1fr;
 `;
-
 const cssCell = css`
   padding: 0.5rem;
   text-align: right;
@@ -30,7 +31,12 @@ const cssCellName = css`
 function ClientPage({ clientsData }) {
   return (
     <>
-      <div className="day">
+      <HeaderWrapper
+        headerInputPlaceholder="Enter new client"
+        headerInputOnChange={() => console.log("add client name")}
+        headerSubmitOnClick={() => console.log("add client")}
+      ></HeaderWrapper>
+      <div css={cssListWrapper}>
         <div css={cssTableWrapper}>
           <span css={cssCellHeaderName}>Name</span>
           <span css={cssCellHeader}>Hours</span>
@@ -65,7 +71,9 @@ function ClientPage({ clientsData }) {
               );
             })
           ) : (
-            <span css={cssCellName}><LoadSpinner /></span>
+            <span css={cssCellName}>
+              <LoadSpinner />
+            </span>
           )}
         </div>
       </div>

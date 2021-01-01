@@ -1,6 +1,5 @@
 import { useQuery, gql } from "@apollo/client";
 import ClientPage from "../pages/client-page";
-import LoadSpinner from "../components/load-spinner";
 
 const GET_CLIENTS = gql`
   query GetClients {

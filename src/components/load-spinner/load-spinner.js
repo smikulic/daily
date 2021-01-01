@@ -16,15 +16,15 @@ const cssLoadSpinner = css`
     background: ${cssColorActionBackground};
     animation: load-spinner 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
   }
-  & div:nth-child(1) {
+  & div:nth-of-type(1) {
     left: 4px;
     animation-delay: -0.24s;
   }
-  & div:nth-child(2) {
+  & div:nth-of-type(2) {
     left: 16px;
     animation-delay: -0.12s;
   }
-  & div:nth-child(3) {
+  & div:nth-of-type(3) {
     left: 28px;
     animation-delay: 0;
   }

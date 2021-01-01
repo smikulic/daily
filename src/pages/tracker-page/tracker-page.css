@@ -1,55 +1,3 @@
-.new-activity {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 2.6rem;
-  padding: 0 2em;
-  background-color: #fff;
-}
-
-.new-activity--description {
-  display: flex;
-  flex-basis: 80%;
-  font-size: 1rem;
-  border: 0;
-  outline: 0;
-}
-
-.new-activity--actions {
-  display: flex;
-  flex-basis: 20%;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.new-activity--actions .day-event--hours {
-  margin-right: 0.6rem;
-}
-
-.new-activity--actions .new-activity--category {
-  position: relative;
-  margin-right: 0.3rem;
-  color: rgba(44, 19, 56, 0.5);
-  cursor: pointer;
-}
-.new-activity--actions
-  .new-activity--category
-  .day-event---project-client-wrapper
-  .tag {
-  font-size: 0.8rem;
-}
-
-.new-activity--actions .new-activity--category:hover {
-  color: rgba(44, 19, 56, 1);
-}
-
-.new-activity--actions .new-activity--submit {
-  z-index: 2;
-  color: #dd6fd1;
-  cursor: pointer;
-}
-
 .DayPickerInput {
   z-index: 1;
   display: flex;
@@ -77,15 +25,7 @@
   font-size: 0.8rem;
 }
 
-.day {
-  display: flex;
-  flex-direction: column;
-  margin: 1rem 1.5rem;
-  box-shadow: 0px 2px 6px -2px #f8f8f9;
-  font-size: 0.8rem;
-  background-color: #fff;
-  color: #2c1338;
-}
+
 
 .day-summary {
   display: flex;
