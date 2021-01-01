@@ -3,6 +3,7 @@ import React from "react";
 import { css } from "@emotion/react";
 import RemoveAction from "../../components/remove-action";
 import UnitFormatter from "../../components/unit-formatter";
+import LoadSpinner from "../../components/load-spinner";
 
 const cssTableWrapper = css`
   display: grid;
@@ -36,7 +37,7 @@ function ClientPage({ clientsData }) {
           <span css={cssCellHeader}>Rate</span>
           <span css={cssCellHeader}>Billed</span>
           <span css={cssCellHeader}></span>
-          {clientsData.length &&
+          {clientsData.length ? (
             clientsData.map((client) => {
               const formattedRate = new Intl.NumberFormat().format(client.rate);
               const formattedTotalBilled = new Intl.NumberFormat().format(
@@ -62,7 +63,10 @@ function ClientPage({ clientsData }) {
                   </span>
                 </React.Fragment>
               );
-            })}
+            })
+          ) : (
+            <span css={cssCellName}><LoadSpinner /></span>
+          )}
         </div>
       </div>
     </>

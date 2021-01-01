@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { Link, useLocation, useHistory } from "react-router-dom";
+import { cssColorPurple } from "../../style/patterns";
 import logo from "./logo.svg";
 
-const cssColorPurple = "#2c1338";
 const cssColorBeige = "rgba(253, 229, 220, 1)";
 const cssColorBeigeLight = "rgba(253, 229, 220, 0.5)";
 const cssFlexColumn = css`

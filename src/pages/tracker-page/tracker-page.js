@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import ContentEditable from "react-contenteditable";
 import Select from "react-select";
 import DayPickerInput from "react-day-picker/DayPickerInput";
@@ -13,6 +13,7 @@ import RangePicker from "../../components/range-picker";
 import EventCategory from "../../components/event-category/event-category";
 import RemoveAction from "../../components/remove-action";
 import UnitFormatter from "../../components/unit-formatter";
+import LoadSpinner from "../../components/load-spinner";
 import { formatHours } from "../../utils/formatHours";
 import "./tracker-page.css";
 
@@ -65,10 +66,7 @@ function TrackerPage({ activitiesData }) {
   const [projects] = useState(
     JSON.parse(localStorage.getItem("daily__projects")) || []
   );
-  const [activities, setActivities] = useState(
-    activitiesData || []
-    // JSON.parse(localStorage.getItem("daily__activity")) || []
-  );
+  const [activities, setActivities] = useState(activitiesData);
   const [showRangeInput, setRangeInput] = useState(false);
   const [showNewEventRange, toggleNewEventRange] = useState(false);
   const [showProjectSelect, toggleProjectSelect] = useState(false);
@@ -79,6 +77,11 @@ function TrackerPage({ activitiesData }) {
     description: "",
   });
   const descriptionText = useRef("");
+
+  useEffect(() => {
+    // action on update of activities data
+    setActivities(activitiesData);
+  }, [activitiesData]);
 
   const updateActivity = (dayId, updatedEvents, submitFlag = true) => {
     const tempDay = activities.find((day) => day.id === dayId);
@@ -231,7 +234,7 @@ function TrackerPage({ activitiesData }) {
           )}
         </div>
       </div>
-      {activities.length &&
+      {activities.length ? (
         activities.map((day) => {
           let totalHours = 0;
           day.events.forEach((dayEvent) => (totalHours += dayEvent.hours));
@@ -349,7 +352,14 @@ function TrackerPage({ activitiesData }) {
               </div>
             </div>
           );
-        })}
+        })
+      ) : (
+        <div className="day">
+          <div className="day-summary">
+            <LoadSpinner />
+          </div>
+        </div>
+      )}
     </>
   );
 }

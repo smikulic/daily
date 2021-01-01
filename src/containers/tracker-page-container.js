@@ -29,9 +29,8 @@ export default function TrackerPageContainer({ children }) {
   const { loading, error, data } = useQuery(GET_ACTIVITIES, {
     fetchPolicy: "cache-and-network",
   });
-  if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   console.log(data);
 
-  return <TrackerPage activitiesData={data.activities} />;
+  return <TrackerPage activitiesData={loading ? [] : data.activities} />;
 }
