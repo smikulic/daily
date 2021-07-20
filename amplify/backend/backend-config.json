@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "dailyacbb8380": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
