@@ -14,20 +14,26 @@ export function PrivateRoute({ children, ...rest }) {
   return (
     <Route
       {...rest}
-      render={({ location }) =>
-        localStorage.getItem("daily__token") || null ? (
+      render={
+        ({ location }) => (
           <>
             <Sidebar />
             <div css={cssMainContainer}>{children}</div>
           </>
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { from: location },
-            }}
-          />
         )
+        // localStorage.getItem("daily__token") || null ? (
+        //   <>
+        //     <Sidebar />
+        //     <div css={cssMainContainer}>{children}</div>
+        //   </>
+        // ) : (
+        //   <Redirect
+        //     to={{
+        //       pathname: "/login",
+        //       state: { from: location },
+        //     }}
+        //   />
+        // )
       }
     />
   );

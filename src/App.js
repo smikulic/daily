@@ -1,13 +1,30 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  AmplifyAuthenticator,
+  AmplifySignUp,
+  AmplifySignIn,
+} from "@aws-amplify/ui-react";
+import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 import { PrivateRoute } from "./router";
-import LoginPageContainer from "./containers/login-page-container";
+// import LoginPageContainer from "./containers/login-page-container";
 import TrackerPageContainer from "./containers/tracker-page-container";
 import ClientPageContainer from "./containers/client-page-container";
 
 export default function App() {
-  return (
+  const [authState, setAuthState] = React.useState();
+  const [user, setUser] = React.useState();
+
+  React.useEffect(() => {
+    return onAuthUIStateChange((nextAuthState, authData) => {
+      setAuthState(nextAuthState);
+      setUser(authData);
+    });
+  }, []);
+
+  return authState === AuthState.SignedIn && user ? (
     <Router>
       <div
         css={css`
@@ -22,9 +39,9 @@ export default function App() {
           of them to render at a time
         */}
         <Switch>
-          <Route exact path="/login">
+          {/* <Route exact path="/login">
             <LoginPageContainer />
-          </Route>
+          </Route> */}
           <PrivateRoute exact path="/">
             <TrackerPageContainer />
           </PrivateRoute>
@@ -34,5 +51,14 @@ export default function App() {
         </Switch>
       </div>
     </Router>
+  ) : (
+    <AmplifyAuthenticator>
+      <AmplifySignUp
+        slot="sign-up"
+        usernameAlias="email"
+        formFields={[{ type: "email" }, { type: "password" }]}
+      />
+      <AmplifySignIn slot="sign-in" usernameAlias="email" />
+    </AmplifyAuthenticator>
   );
 }
