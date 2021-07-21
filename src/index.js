@@ -7,15 +7,15 @@ import {
   ApolloProvider,
   InMemoryCache,
   HttpLink,
-  concat,
 } from "@apollo/client";
+import Amplify from "aws-amplify";
+import { createAuthLink } from "aws-appsync-auth-link";
+import awsconfig from "./aws-exports";
 import App from "./App";
 import { activityData, projectData } from "./sampleData.js";
-import Amplify from 'aws-amplify';
-import config from './aws-exports';
 import "./index.css";
 
-Amplify.configure(config);
+Amplify.configure(awsconfig);
 
 if (localStorage.getItem("daily__activity") === null) {
   localStorage.setItem("daily__activity", JSON.stringify(activityData));
@@ -24,23 +24,21 @@ if (localStorage.getItem("daily__projects") === null) {
   localStorage.setItem("daily__projects", JSON.stringify(projectData));
 }
 
+const url = awsconfig.aws_appsync_graphqlEndpoint;
+const region = awsconfig.aws_appsync_region;
+const auth = {
+  type: awsconfig.aws_appsync_authenticationType,
+  apiKey: awsconfig.aws_appsync_apiKey,
+};
+
 const httpLink = new HttpLink({
-  uri: "http://localhost:4000",
+  uri: url,
 });
 
-const authMiddleware = new ApolloLink((operation, forward) => {
-  // add the authorization to the headers
-  operation.setContext({
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("daily__token") || null}`,
-    },
-  });
-
-  return forward(operation);
-});
+const link = ApolloLink.from([createAuthLink({ url, region, auth }), httpLink]);
 
 const client = new ApolloClient({
-  link: concat(authMiddleware, httpLink),
+  link: link,
   cache: new InMemoryCache(),
 });
 
