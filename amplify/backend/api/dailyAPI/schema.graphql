@@ -1,4 +1,4 @@
-type Client @model {
+type Client @model @auth(rules: [{allow: owner}]) {
   id: ID!
   name: String!
   rate: String
@@ -28,12 +28,6 @@ type Activity @model @key(name: "byClient", fields: ["clientID"]) {
 }
 
 # type Mutation {
-#   clientCreate(
-#     name: String!
-#     rate: String
-#     currency: String!
-#     themeColor: String
-#   ): Client
 #   eventCreate(
 #     clientId: ID!
 #     description: String!
