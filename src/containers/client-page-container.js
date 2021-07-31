@@ -11,18 +11,23 @@ export default function ClientPageContainer({ children }) {
   const { loading, error, data } = useQuery(GET_CLIENTS, {
     fetchPolicy: "cache-and-network",
   });
-  const [addClient, { data: addClientData }] = useMutation(ADD_CLIENT);
-  const [removeClient, { data: removeClientData }] = useMutation(REMOVE_CLIENT);
+  const [addClient, { loading: addClientLoading }] = useMutation(ADD_CLIENT, {
+    refetchQueries: [{ query: GET_CLIENTS }],
+  });
+  const [removeClient, { loading: removeClientLoading }] = useMutation(
+    REMOVE_CLIENT,
+    {
+      refetchQueries: [{ query: GET_CLIENTS }],
+    }
+  );
+
+  const loadingState = loading || addClientLoading || removeClientLoading;
 
   if (error) return <p>Error :(</p>;
-  console.log(data);
-  console.log(addClientData);
-  console.log(removeClientData);
-  // console.log(addClientError);
 
   return (
     <ClientPage
-      clientsData={loading ? [] : data.listClients.items}
+      clientsData={loadingState ? [] : data.listClients.items}
       addClient={addClient}
       removeClient={removeClient}
     />
