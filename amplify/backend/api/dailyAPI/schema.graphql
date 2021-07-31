@@ -1,4 +1,5 @@
-type Client @model @auth(rules: [{allow: owner}]) {
+type Client @model
+  @auth(rules: [{ allow: owner }]) {
   id: ID!
   name: String!
   rate: String
@@ -10,7 +11,9 @@ type Client @model @auth(rules: [{allow: owner}]) {
   activities: [Event] @connection(keyName: "byClient", fields: ["id"])
 }
 
-type Event @model @key(name: "byClient", fields: ["clientID"]) {
+type Event @model
+  @key(name: "byClient", fields: ["clientID"])
+  @auth(rules: [{ allow: owner }]) {
   id: ID!
   clientID: ID!
   description: String!
@@ -19,7 +22,9 @@ type Event @model @key(name: "byClient", fields: ["clientID"]) {
   client: Client @connection(fields: ["clientID"])
 }
 
-type Activity @model @key(name: "byClient", fields: ["clientID"]) {
+type Activity @model
+  @key(name: "byClient", fields: ["clientID"])
+  @auth(rules: [{ allow: owner }]) {
   id: ID!
   clientID: ID!
   key: Int!
