@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import React from "react";
+import React, { useState } from "react";
 import RemoveAction from "../../components/remove-action";
 import UnitFormatter from "../../components/unit-formatter";
 import LoadSpinner from "../../components/load-spinner";
@@ -28,14 +28,42 @@ const cssCellName = css`
   text-align: left;
 `;
 
-function ClientPage({ clientsData }) {
+function ClientPage({ clientsData, addClient, removeClient }) {
+  const [newClient, setNewClient] = useState({
+    name: "",
+    rate: "",
+    currency: "",
+  });
+
   return (
     <>
       <HeaderWrapper
         headerInputPlaceholder="Enter new client"
-        headerInputOnChange={() => console.log("add client name")}
-        headerSubmitOnClick={() => console.log("add client")}
-      ></HeaderWrapper>
+        headerInputOnChange={(event) =>
+          setNewClient({ ...newClient, name: event.target.value })
+        }
+        headerSubmitOnClick={() => {
+          addClient({ variables: { input: newClient } });
+        }}
+      >
+        <input
+          type="text"
+          value={newClient.rate}
+          onChange={(event) =>
+            setNewClient({ ...newClient, rate: event.target.value })
+          }
+        />
+        <select
+          name="currency"
+          onChange={(event) =>
+            setNewClient({ ...newClient, currency: event.target.value })
+          }
+          defaultValue="USD"
+        >
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+        </select>
+      </HeaderWrapper>
       <div css={cssListWrapper}>
         <div css={cssTableWrapper}>
           <span css={cssCellHeaderName}>Name</span>
@@ -65,7 +93,13 @@ function ClientPage({ clientsData }) {
                     <UnitFormatter>{client.currency}</UnitFormatter>
                   </span>
                   <span css={cssCell}>
-                    <RemoveAction />
+                    <RemoveAction
+                      onClick={() =>
+                        removeClient({
+                          variables: { input: { id: client.id } },
+                        })
+                      }
+                    />
                   </span>
                 </React.Fragment>
               );

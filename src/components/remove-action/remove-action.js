@@ -2,9 +2,10 @@
 import { css } from "@emotion/react";
 import { cssColorRed, cssColorActionBackground } from "../../style/patterns";
 
-function RemoveAction() {
+function RemoveAction({ onClick }) {
   return (
     <div
+      onClick={onClick}
       css={css`
         display: flex;
         justify-content: center;
