@@ -130,7 +130,7 @@ function ClientPage({ clientsData, addClient, removeClient }) {
           <span css={cssCellHeader}>Rate</span>
           <span css={cssCellHeader}>Billed</span>
           <span css={cssCellHeader}></span>
-          {clientsData && clientsData.length > 0 ? (
+          {clientsData.length ? (
             clientsData.map((client) => {
               const formattedRate = new Intl.NumberFormat().format(client.rate);
               const formattedTotalBilled = new Intl.NumberFormat().format(
