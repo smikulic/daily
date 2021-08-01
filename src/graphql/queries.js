@@ -18,7 +18,6 @@ export const getClient = /* GraphQL */ `
           description
           hours
           date
-          userContext
           createdAt
           updatedAt
         }
@@ -31,13 +30,11 @@ export const getClient = /* GraphQL */ `
           description
           hours
           date
-          userContext
           createdAt
           updatedAt
         }
         nextToken
       }
-      userContext
       createdAt
       updatedAt
     }
@@ -64,7 +61,6 @@ export const listClients = /* GraphQL */ `
         activities {
           nextToken
         }
-        userContext
         createdAt
         updatedAt
       }
@@ -94,11 +90,9 @@ export const getEvent = /* GraphQL */ `
         activities {
           nextToken
         }
-        userContext
         createdAt
         updatedAt
       }
-      userContext
       createdAt
       updatedAt
     }
@@ -125,11 +119,9 @@ export const listEvents = /* GraphQL */ `
           themeColor
           totalHours
           totalBilled
-          userContext
           createdAt
           updatedAt
         }
-        userContext
         createdAt
         updatedAt
       }
@@ -151,13 +143,11 @@ export const getActivity = /* GraphQL */ `
           description
           hours
           date
-          userContext
           createdAt
           updatedAt
         }
         nextToken
       }
-      userContext
       createdAt
       updatedAt
     }
@@ -178,7 +168,6 @@ export const listActivities = /* GraphQL */ `
         events {
           nextToken
         }
-        userContext
         createdAt
         updatedAt
       }

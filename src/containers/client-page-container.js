@@ -24,7 +24,7 @@ export default function ClientPageContainer({ children }) {
   const loadingState = loading || addClientLoading || removeClientLoading;
 
   if (error) return <p>Error :(</p>;
-  console.log(data, loadingState, error);
+  console.log(data, loadingState);
 
   return (
     <ClientPage

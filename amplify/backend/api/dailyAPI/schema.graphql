@@ -1,4 +1,4 @@
-type Client @model @aws_api_key {
+type Client @model {
   # @auth(rules: [{ allow: owner }]) {
   id: ID!
   name: String!
@@ -9,7 +9,6 @@ type Client @model @aws_api_key {
   totalBilled: Int
   events: [Event] @connection(keyName: "byClient", fields: ["id"])
   activities: [Event] @connection(keyName: "byClient", fields: ["id"])
-  userContext: String
 }
 
 type Event @model @key(name: "byClient", fields: ["clientID"]) {
@@ -20,7 +19,6 @@ type Event @model @key(name: "byClient", fields: ["clientID"]) {
   hours: Float!
   date: String!
   client: Client @connection(fields: ["clientID"])
-  userContext: String
 }
 
 type Activity @model @key(name: "byClient", fields: ["clientID"]) {
@@ -30,7 +28,6 @@ type Activity @model @key(name: "byClient", fields: ["clientID"]) {
   key: Int!
   date: String!
   events: [Event] @connection(keyName: "byClient", fields: ["id"])
-  userContext: String
 }
 
 # type Mutation {
