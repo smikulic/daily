@@ -1,8 +1,19 @@
 import { useQuery, gql } from "@apollo/client";
-import { listClients } from "../graphql/queries";
 import ClientPage from "../pages/client-page";
 
-const GET_CLIENTS = gql(listClients);
+const GET_CLIENTS = gql`
+  query GetClients {
+    clientsWithTotalHours {
+      id
+      name
+      rate
+      currency
+      themeColor
+      totalHours
+      totalBilled
+    }
+  }
+`;
 
 export default function ClientPageContainer({ children }) {
   const { loading, error, data } = useQuery(GET_CLIENTS, {
@@ -12,5 +23,5 @@ export default function ClientPageContainer({ children }) {
   if (error) return <p>Error :(</p>;
   console.log(data);
 
-  return <ClientPage clientsData={loading ? [] : data.listClients.items} />;
+  return <ClientPage clientsData={loading ? [] : data.clientsWithTotalHours} />;
 }
