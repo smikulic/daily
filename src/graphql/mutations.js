@@ -23,7 +23,6 @@ export const createClient = /* GraphQL */ `
           date
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -36,13 +35,11 @@ export const createClient = /* GraphQL */ `
           date
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -68,7 +65,6 @@ export const updateClient = /* GraphQL */ `
           date
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -81,13 +77,11 @@ export const updateClient = /* GraphQL */ `
           date
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -113,7 +107,6 @@ export const deleteClient = /* GraphQL */ `
           date
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -126,13 +119,11 @@ export const deleteClient = /* GraphQL */ `
           date
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -163,11 +154,9 @@ export const createEvent = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        owner
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -198,11 +187,9 @@ export const updateEvent = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        owner
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -233,11 +220,9 @@ export const deleteEvent = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        owner
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -260,13 +245,11 @@ export const createActivity = /* GraphQL */ `
           date
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -289,13 +272,11 @@ export const updateActivity = /* GraphQL */ `
           date
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -318,13 +299,11 @@ export const deleteActivity = /* GraphQL */ `
           date
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;

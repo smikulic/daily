@@ -20,7 +20,6 @@ export const getClient = /* GraphQL */ `
           date
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -33,13 +32,11 @@ export const getClient = /* GraphQL */ `
           date
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -66,7 +63,6 @@ export const listClients = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -96,11 +92,9 @@ export const getEvent = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        owner
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -127,11 +121,9 @@ export const listEvents = /* GraphQL */ `
           totalBilled
           createdAt
           updatedAt
-          owner
         }
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -153,13 +145,11 @@ export const getActivity = /* GraphQL */ `
           date
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -180,7 +170,6 @@ export const listActivities = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
