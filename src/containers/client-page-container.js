@@ -10,6 +10,7 @@ const REMOVE_CLIENT = gql(deleteClient);
 export default function ClientPageContainer({ children, user }) {
   const { loading, error, data } = useQuery(GET_CLIENTS, {
     fetchPolicy: "cache-and-network",
+    variables: { filter: { userContext: { eq: user.username } } },
   });
   const [addClient, { loading: addClientLoading }] = useMutation(ADD_CLIENT, {
     refetchQueries: [{ query: GET_CLIENTS }],

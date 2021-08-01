@@ -34,7 +34,7 @@ const auth = {
 const httpLink = new HttpLink({
   uri: url,
   headers: {
-    Authorization: localStorage.getItem('CognitoIdentityServiceProvider.b4p03uvdhsqt38hm1n9dbrati.LastAuthUser') || 'gg'
+    Authorization: localStorage.getItem('CognitoIdentityServiceProvider.b4p03uvdhsqt38hm1n9dbrati.LastAuthUser') || ''
   }
 });
 
