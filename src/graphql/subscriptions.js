@@ -11,6 +11,9 @@ export const onCreateClient = /* GraphQL */ `
       themeColor
       totalHours
       totalBilled
+      createdAt
+      updatedAt
+      owner
       events {
         items {
           id
@@ -37,9 +40,6 @@ export const onCreateClient = /* GraphQL */ `
         }
         nextToken
       }
-      createdAt
-      updatedAt
-      owner
     }
   }
 `;
@@ -53,6 +53,9 @@ export const onUpdateClient = /* GraphQL */ `
       themeColor
       totalHours
       totalBilled
+      createdAt
+      updatedAt
+      owner
       events {
         items {
           id
@@ -79,9 +82,6 @@ export const onUpdateClient = /* GraphQL */ `
         }
         nextToken
       }
-      createdAt
-      updatedAt
-      owner
     }
   }
 `;
@@ -95,6 +95,9 @@ export const onDeleteClient = /* GraphQL */ `
       themeColor
       totalHours
       totalBilled
+      createdAt
+      updatedAt
+      owner
       events {
         items {
           id
@@ -121,9 +124,6 @@ export const onDeleteClient = /* GraphQL */ `
         }
         nextToken
       }
-      createdAt
-      updatedAt
-      owner
     }
   }
 `;
@@ -135,6 +135,8 @@ export const onCreateEvent = /* GraphQL */ `
       description
       hours
       date
+      createdAt
+      updatedAt
       client {
         id
         name
@@ -143,18 +145,16 @@ export const onCreateEvent = /* GraphQL */ `
         themeColor
         totalHours
         totalBilled
+        createdAt
+        updatedAt
+        owner
         events {
           nextToken
         }
         activities {
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
       }
-      createdAt
-      updatedAt
       owner
     }
   }
@@ -167,6 +167,8 @@ export const onUpdateEvent = /* GraphQL */ `
       description
       hours
       date
+      createdAt
+      updatedAt
       client {
         id
         name
@@ -175,18 +177,16 @@ export const onUpdateEvent = /* GraphQL */ `
         themeColor
         totalHours
         totalBilled
+        createdAt
+        updatedAt
+        owner
         events {
           nextToken
         }
         activities {
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
       }
-      createdAt
-      updatedAt
       owner
     }
   }
@@ -199,6 +199,8 @@ export const onDeleteEvent = /* GraphQL */ `
       description
       hours
       date
+      createdAt
+      updatedAt
       client {
         id
         name
@@ -207,18 +209,16 @@ export const onDeleteEvent = /* GraphQL */ `
         themeColor
         totalHours
         totalBilled
+        createdAt
+        updatedAt
+        owner
         events {
           nextToken
         }
         activities {
           nextToken
         }
-        createdAt
-        updatedAt
-        owner
       }
-      createdAt
-      updatedAt
       owner
     }
   }
@@ -230,6 +230,8 @@ export const onCreateActivity = /* GraphQL */ `
       clientID
       key
       date
+      createdAt
+      updatedAt
       events {
         items {
           id
@@ -243,8 +245,6 @@ export const onCreateActivity = /* GraphQL */ `
         }
         nextToken
       }
-      createdAt
-      updatedAt
       owner
     }
   }
@@ -256,6 +256,8 @@ export const onUpdateActivity = /* GraphQL */ `
       clientID
       key
       date
+      createdAt
+      updatedAt
       events {
         items {
           id
@@ -269,8 +271,6 @@ export const onUpdateActivity = /* GraphQL */ `
         }
         nextToken
       }
-      createdAt
-      updatedAt
       owner
     }
   }
@@ -282,6 +282,8 @@ export const onDeleteActivity = /* GraphQL */ `
       clientID
       key
       date
+      createdAt
+      updatedAt
       events {
         items {
           id
@@ -295,8 +297,6 @@ export const onDeleteActivity = /* GraphQL */ `
         }
         nextToken
       }
-      createdAt
-      updatedAt
       owner
     }
   }
