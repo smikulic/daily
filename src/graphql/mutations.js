@@ -21,6 +21,7 @@ export const createClient = /* GraphQL */ `
           description
           hours
           date
+          userContext
           createdAt
           updatedAt
         }
@@ -33,11 +34,13 @@ export const createClient = /* GraphQL */ `
           description
           hours
           date
+          userContext
           createdAt
           updatedAt
         }
         nextToken
       }
+      userContext
       createdAt
       updatedAt
     }
@@ -63,6 +66,7 @@ export const updateClient = /* GraphQL */ `
           description
           hours
           date
+          userContext
           createdAt
           updatedAt
         }
@@ -75,11 +79,13 @@ export const updateClient = /* GraphQL */ `
           description
           hours
           date
+          userContext
           createdAt
           updatedAt
         }
         nextToken
       }
+      userContext
       createdAt
       updatedAt
     }
@@ -105,6 +111,7 @@ export const deleteClient = /* GraphQL */ `
           description
           hours
           date
+          userContext
           createdAt
           updatedAt
         }
@@ -117,11 +124,13 @@ export const deleteClient = /* GraphQL */ `
           description
           hours
           date
+          userContext
           createdAt
           updatedAt
         }
         nextToken
       }
+      userContext
       createdAt
       updatedAt
     }
@@ -152,9 +161,11 @@ export const createEvent = /* GraphQL */ `
         activities {
           nextToken
         }
+        userContext
         createdAt
         updatedAt
       }
+      userContext
       createdAt
       updatedAt
     }
@@ -185,9 +196,11 @@ export const updateEvent = /* GraphQL */ `
         activities {
           nextToken
         }
+        userContext
         createdAt
         updatedAt
       }
+      userContext
       createdAt
       updatedAt
     }
@@ -218,9 +231,11 @@ export const deleteEvent = /* GraphQL */ `
         activities {
           nextToken
         }
+        userContext
         createdAt
         updatedAt
       }
+      userContext
       createdAt
       updatedAt
     }
@@ -243,11 +258,13 @@ export const createActivity = /* GraphQL */ `
           description
           hours
           date
+          userContext
           createdAt
           updatedAt
         }
         nextToken
       }
+      userContext
       createdAt
       updatedAt
     }
@@ -270,11 +287,13 @@ export const updateActivity = /* GraphQL */ `
           description
           hours
           date
+          userContext
           createdAt
           updatedAt
         }
         nextToken
       }
+      userContext
       createdAt
       updatedAt
     }
@@ -297,11 +316,13 @@ export const deleteActivity = /* GraphQL */ `
           description
           hours
           date
+          userContext
           createdAt
           updatedAt
         }
         nextToken
       }
+      userContext
       createdAt
       updatedAt
     }
