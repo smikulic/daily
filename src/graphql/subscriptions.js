@@ -2,8 +2,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateClient = /* GraphQL */ `
-  subscription OnCreateClient {
-    onCreateClient {
+  subscription OnCreateClient($owner: String!) {
+    onCreateClient(owner: $owner) {
       id
       name
       rate
@@ -11,6 +11,9 @@ export const onCreateClient = /* GraphQL */ `
       themeColor
       totalHours
       totalBilled
+      createdAt
+      updatedAt
+      owner
       events {
         items {
           id
@@ -20,6 +23,7 @@ export const onCreateClient = /* GraphQL */ `
           date
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
@@ -32,17 +36,16 @@ export const onCreateClient = /* GraphQL */ `
           date
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
     }
   }
 `;
 export const onUpdateClient = /* GraphQL */ `
-  subscription OnUpdateClient {
-    onUpdateClient {
+  subscription OnUpdateClient($owner: String!) {
+    onUpdateClient(owner: $owner) {
       id
       name
       rate
@@ -50,6 +53,9 @@ export const onUpdateClient = /* GraphQL */ `
       themeColor
       totalHours
       totalBilled
+      createdAt
+      updatedAt
+      owner
       events {
         items {
           id
@@ -59,6 +65,7 @@ export const onUpdateClient = /* GraphQL */ `
           date
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
@@ -71,17 +78,16 @@ export const onUpdateClient = /* GraphQL */ `
           date
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
     }
   }
 `;
 export const onDeleteClient = /* GraphQL */ `
-  subscription OnDeleteClient {
-    onDeleteClient {
+  subscription OnDeleteClient($owner: String!) {
+    onDeleteClient(owner: $owner) {
       id
       name
       rate
@@ -89,6 +95,9 @@ export const onDeleteClient = /* GraphQL */ `
       themeColor
       totalHours
       totalBilled
+      createdAt
+      updatedAt
+      owner
       events {
         items {
           id
@@ -98,6 +107,7 @@ export const onDeleteClient = /* GraphQL */ `
           date
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
@@ -110,22 +120,23 @@ export const onDeleteClient = /* GraphQL */ `
           date
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
     }
   }
 `;
 export const onCreateEvent = /* GraphQL */ `
-  subscription OnCreateEvent {
-    onCreateEvent {
+  subscription OnCreateEvent($owner: String!) {
+    onCreateEvent(owner: $owner) {
       id
       clientID
       description
       hours
       date
+      createdAt
+      updatedAt
       client {
         id
         name
@@ -134,28 +145,30 @@ export const onCreateEvent = /* GraphQL */ `
         themeColor
         totalHours
         totalBilled
+        createdAt
+        updatedAt
+        owner
         events {
           nextToken
         }
         activities {
           nextToken
         }
-        createdAt
-        updatedAt
       }
-      createdAt
-      updatedAt
+      owner
     }
   }
 `;
 export const onUpdateEvent = /* GraphQL */ `
-  subscription OnUpdateEvent {
-    onUpdateEvent {
+  subscription OnUpdateEvent($owner: String!) {
+    onUpdateEvent(owner: $owner) {
       id
       clientID
       description
       hours
       date
+      createdAt
+      updatedAt
       client {
         id
         name
@@ -164,28 +177,30 @@ export const onUpdateEvent = /* GraphQL */ `
         themeColor
         totalHours
         totalBilled
+        createdAt
+        updatedAt
+        owner
         events {
           nextToken
         }
         activities {
           nextToken
         }
-        createdAt
-        updatedAt
       }
-      createdAt
-      updatedAt
+      owner
     }
   }
 `;
 export const onDeleteEvent = /* GraphQL */ `
-  subscription OnDeleteEvent {
-    onDeleteEvent {
+  subscription OnDeleteEvent($owner: String!) {
+    onDeleteEvent(owner: $owner) {
       id
       clientID
       description
       hours
       date
+      createdAt
+      updatedAt
       client {
         id
         name
@@ -194,27 +209,29 @@ export const onDeleteEvent = /* GraphQL */ `
         themeColor
         totalHours
         totalBilled
+        createdAt
+        updatedAt
+        owner
         events {
           nextToken
         }
         activities {
           nextToken
         }
-        createdAt
-        updatedAt
       }
-      createdAt
-      updatedAt
+      owner
     }
   }
 `;
 export const onCreateActivity = /* GraphQL */ `
-  subscription OnCreateActivity {
-    onCreateActivity {
+  subscription OnCreateActivity($owner: String!) {
+    onCreateActivity(owner: $owner) {
       id
       clientID
       key
       date
+      createdAt
+      updatedAt
       events {
         items {
           id
@@ -224,21 +241,23 @@ export const onCreateActivity = /* GraphQL */ `
           date
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
+      owner
     }
   }
 `;
 export const onUpdateActivity = /* GraphQL */ `
-  subscription OnUpdateActivity {
-    onUpdateActivity {
+  subscription OnUpdateActivity($owner: String!) {
+    onUpdateActivity(owner: $owner) {
       id
       clientID
       key
       date
+      createdAt
+      updatedAt
       events {
         items {
           id
@@ -248,21 +267,23 @@ export const onUpdateActivity = /* GraphQL */ `
           date
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
+      owner
     }
   }
 `;
 export const onDeleteActivity = /* GraphQL */ `
-  subscription OnDeleteActivity {
-    onDeleteActivity {
+  subscription OnDeleteActivity($owner: String!) {
+    onDeleteActivity(owner: $owner) {
       id
       clientID
       key
       date
+      createdAt
+      updatedAt
       events {
         items {
           id
@@ -272,11 +293,11 @@ export const onDeleteActivity = /* GraphQL */ `
           date
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
+      owner
     }
   }
 `;
