@@ -11,8 +11,15 @@ import {
 } from "@apollo/client";
 import App from "./App";
 import { activityData, projectData } from "./sampleData.js";
+import Amplify from 'aws-amplify';
+import config from './aws-exports';
 import "./index.css";
 
+<<<<<<< HEAD
+=======
+Amplify.configure(config);
+
+>>>>>>> parent of 7268136 (AWS: Add Amplifyclient side graphql)
 if (localStorage.getItem("daily__activity") === null) {
   localStorage.setItem("daily__activity", JSON.stringify(activityData));
 }
