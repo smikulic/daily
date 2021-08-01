@@ -48,7 +48,7 @@ export default function App() {
             <TrackerPageContainer />
           </PrivateRoute>
           <PrivateRoute exact path="/clients">
-            <ClientPageContainer />
+            <ClientPageContainer user={user} />
           </PrivateRoute>
         </Switch>
       </div>

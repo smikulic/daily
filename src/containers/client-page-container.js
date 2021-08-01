@@ -7,7 +7,7 @@ const GET_CLIENTS = gql(listClients);
 const ADD_CLIENT = gql(createClient);
 const REMOVE_CLIENT = gql(deleteClient);
 
-export default function ClientPageContainer({ children }) {
+export default function ClientPageContainer({ children, user }) {
   const { loading, error, data } = useQuery(GET_CLIENTS, {
     fetchPolicy: "cache-and-network",
   });
