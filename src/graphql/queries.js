@@ -11,9 +11,6 @@ export const getClient = /* GraphQL */ `
       themeColor
       totalHours
       totalBilled
-      createdAt
-      updatedAt
-      owner
       events {
         items {
           id
@@ -23,7 +20,6 @@ export const getClient = /* GraphQL */ `
           date
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
@@ -36,10 +32,11 @@ export const getClient = /* GraphQL */ `
           date
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -58,15 +55,14 @@ export const listClients = /* GraphQL */ `
         themeColor
         totalHours
         totalBilled
-        createdAt
-        updatedAt
-        owner
         events {
           nextToken
         }
         activities {
           nextToken
         }
+        createdAt
+        updatedAt
       }
       nextToken
     }
@@ -80,8 +76,6 @@ export const getEvent = /* GraphQL */ `
       description
       hours
       date
-      createdAt
-      updatedAt
       client {
         id
         name
@@ -90,17 +84,17 @@ export const getEvent = /* GraphQL */ `
         themeColor
         totalHours
         totalBilled
-        createdAt
-        updatedAt
-        owner
         events {
           nextToken
         }
         activities {
           nextToken
         }
+        createdAt
+        updatedAt
       }
-      owner
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -117,8 +111,6 @@ export const listEvents = /* GraphQL */ `
         description
         hours
         date
-        createdAt
-        updatedAt
         client {
           id
           name
@@ -129,9 +121,9 @@ export const listEvents = /* GraphQL */ `
           totalBilled
           createdAt
           updatedAt
-          owner
         }
-        owner
+        createdAt
+        updatedAt
       }
       nextToken
     }
@@ -144,8 +136,6 @@ export const getActivity = /* GraphQL */ `
       clientID
       key
       date
-      createdAt
-      updatedAt
       events {
         items {
           id
@@ -155,11 +145,11 @@ export const getActivity = /* GraphQL */ `
           date
           createdAt
           updatedAt
-          owner
         }
         nextToken
       }
-      owner
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -175,12 +165,11 @@ export const listActivities = /* GraphQL */ `
         clientID
         key
         date
-        createdAt
-        updatedAt
         events {
           nextToken
         }
-        owner
+        createdAt
+        updatedAt
       }
       nextToken
     }

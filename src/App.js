@@ -24,6 +24,8 @@ export default function App() {
     });
   }, []);
 
+  console.log(user)
+
   return authState === AuthState.SignedIn && user ? (
     <Router>
       <div
