@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { AmplifySignOut } from "@aws-amplify/ui-react";
 import { Link, useLocation, useHistory } from "react-router-dom";
 import { cssColorPurple, cssFlexColumn } from "../../style/patterns";
 import logo from "./logo.svg";
@@ -61,13 +60,12 @@ function Sidebar() {
       </div>
       <div
         css={cssNavigationItem()}
-        // onClick={() => {
-        //   localStorage.removeItem("daily__token");
-        //   history.push("/");
-        // }}
+        onClick={() => {
+          localStorage.removeItem("daily__token");
+          history.push("/");
+        }}
       >
-        {/* Log Out */}
-        <AmplifySignOut />
+        Log Out
       </div>
     </div>
   );

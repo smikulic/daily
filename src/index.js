@@ -11,11 +11,7 @@ import {
 } from "@apollo/client";
 import App from "./App";
 import { activityData, projectData } from "./sampleData.js";
-import Amplify from 'aws-amplify';
-import config from './aws-exports';
 import "./index.css";
-
-Amplify.configure(config);
 
 if (localStorage.getItem("daily__activity") === null) {
   localStorage.setItem("daily__activity", JSON.stringify(activityData));
