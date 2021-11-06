@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.3.6",
-    "@aws-amplify/ui-react": "^1.2.6",
     "@emotion/react": "^11.1.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
@@ -12,8 +11,6 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "aws-amplify": "^4.2.0",
-    "aws-appsync-auth-link": "^3.0.5",
     "date-fns": "^2.16.1",
     "graphql": "^15.4.0",
     "lodash": "^4.17.20",
