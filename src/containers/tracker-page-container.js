@@ -1,8 +1,29 @@
 import { useQuery, gql } from "@apollo/client";
-import { listActivities } from "../graphql/queries";
 import TrackerPage from "../pages/tracker-page";
 
-const GET_ACTIVITIES = gql(listActivities);
+const GET_ACTIVITIES = gql`
+  query GetActivities {
+    activities {
+      key
+      date
+      events {
+        id
+        description
+        date
+        hours
+        clientId
+        userId
+        client {
+          id
+          name
+          themeColor
+          rate
+          currency
+        }
+      }
+    }
+  }
+`;
 
 export default function TrackerPageContainer({ children }) {
   const { loading, error, data } = useQuery(GET_ACTIVITIES, {
@@ -11,5 +32,5 @@ export default function TrackerPageContainer({ children }) {
   if (error) return <p>Error :(</p>;
   console.log(data);
 
-  return <TrackerPage activitiesData={loading ? [] : data.listActivities.items} />;
+  return <TrackerPage activitiesData={loading ? [] : data.activities} />;
 }
