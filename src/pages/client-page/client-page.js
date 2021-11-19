@@ -79,7 +79,7 @@ const cssClientHeaderInput = css`
   color: ${cssColorGray};
 `;
 
-function ClientPage({ clientsData, addClient, removeClient }) {
+function ClientPage({ clientsData, loading, addClient, removeClient }) {
   const [showCellAction, toggleCellAction] = useState(undefined);
   const [newClient, setNewClient] = useState({
     name: "",
@@ -95,7 +95,7 @@ function ClientPage({ clientsData, addClient, removeClient }) {
           setNewClient({ ...newClient, name: event.target.value })
         }
         headerSubmitOnClick={() => {
-          addClient({ variables: { input: newClient } });
+          addClient({ variables: { ...newClient } });
         }}
       >
         <div css={cssHeaderRightElement}>
@@ -130,7 +130,8 @@ function ClientPage({ clientsData, addClient, removeClient }) {
           <span css={cssCellHeader}>Rate</span>
           <span css={cssCellHeader}>Billed</span>
           <span css={cssCellHeader}></span>
-          {clientsData && clientsData.length > 0 ? (
+          {clientsData &&
+            clientsData.length > 0 &&
             clientsData.map((client) => {
               const formattedRate = new Intl.NumberFormat().format(client.rate);
               const formattedTotalBilled = new Intl.NumberFormat().format(
@@ -168,11 +169,10 @@ function ClientPage({ clientsData, addClient, removeClient }) {
                         <div css={cssCellActionDropdownItem}>Edit</div>
                         <div
                           css={cssCellActionDropdownItemRemove}
-                          onClick={() =>
-                            removeClient({
-                              variables: { input: { id: client.id } },
-                            })
-                          }
+                          onClick={() => {
+                            removeClient({ variables: { id: client.id } });
+                            toggleCellAction(undefined);
+                          }}
                         >
                           Remove
                         </div>
@@ -181,8 +181,8 @@ function ClientPage({ clientsData, addClient, removeClient }) {
                   </span>
                 </React.Fragment>
               );
-            })
-          ) : (
+            })}
+          {loading && (
             <span css={cssCellName}>
               <LoadSpinner />
             </span>

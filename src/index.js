@@ -21,8 +21,8 @@ if (localStorage.getItem("daily__projects") === null) {
 }
 
 const httpLink = new HttpLink({
-  // uri: "http://localhost:4000", // DEV
-  uri: "https://daily-app-node.herokuapp.com/", // PROD
+  uri: "http://localhost:4000", // DEV
+  // uri: "https://daily-app-node.herokuapp.com/", // PROD
 });
 
 const authMiddleware = new ApolloLink((operation, forward) => {
